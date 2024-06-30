@@ -1,0 +1,86 @@
+/* Adicione estes estilos para simular um esquema de cores de código */
+.code-textarea {
+    background-color: #2b2b2b;
+    color: #d4d4d4;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    resize: none;
+  }
+  
+  /* Adicione estilos para a barra de rolagem se desejar */
+  .code-textarea::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .code-textarea::-webkit-scrollbar-thumb {
+    background-color: #4d4d4d;
+  }
+  
+  .code-textarea::-webkit-scrollbar-track {
+    background-color: #333333;
+  }
+  
+
+  /* styles.css */
+
+.code-container {
+  background-color: #282c34;
+  color: #abb2bf;
+  padding: 10px;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.code {
+  font-family: 'Courier New', monospace;
+  font-size: 18px;
+  line-height: 1.4;
+  tab-size: 2;
+  white-space: pre-wrap;
+}
+
+
+.row {
+  display: grid; /* Força o layout grid */
+  grid-template-columns: repeat(12, 1fr); /* Define 12 colunas de largura igual */
+  gap: 1rem; /* Adiciona espaçamento entre as colunas */
+}
+
+.col-md-1 {
+  grid-column: span 1; /* Ocupa 1 coluna */
+}
+
+.col-md-2 {
+  grid-column: span 2; /* Ocupa 2 colunas */
+}
+
+.col-md-3 {
+  grid-column: span 3; /* Ocupa 2 colunas */
+}
+
+.col-md-4 {
+  grid-column: span 4; /* Ocupa 2 colunas */
+}
+
+.col-md-5 {
+  grid-column: span 5; /* Ocupa 2 colunas */
+}
+
+.col-md-6 {
+  grid-column: span 6; /* Ocupa 2 colunas */
+}
+.col-md-8 {
+  grid-column: span 8; /* Ocupa 2 colunas */
+}
+
+.col-md-12 {
+  grid-column: span 12; /* Ocupa 2 colunas */
+}
+
+
+.col-align {
+  display: grid;  /* Ativa o layout grid */
+  place-items: center;  /* Centraliza o conteúdo da div */
+}

@@ -1,0 +1,222 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+
+    <form [formGroup]="formGroup">
+
+        
+            <mat-drawer-container
+                class="flex-auto h-full bg-card dark:bg-transparent"
+                (backdropClick)="onBackdropClicked()">
+
+                <!-- Drawer -->
+                <mat-drawer
+                    class="w-full md:w-160 dark:bg-gray-900"
+                    [mode]="drawerMode"
+                    [opened]="false"
+                    [position]="'end'"
+                    [disableClose]="true"
+                    #matDrawer>
+                    <router-outlet></router-outlet>
+                </mat-drawer>
+
+                <mat-drawer-content class="flex flex-col">
+
+                    <!-- Main -->
+                    <div class="flex-auto">
+
+                        <!-- Header -->
+                        <div class="flex flex-col sm:flex-row md:flex-col flex-auto justify-between py-8 px-6 md:px-8 border-b">
+
+                            <!-- Title -->
+                            <div>
+                                <div class="text-4xl font-extrabold tracking-tight leading-none">Configurations</div>
+                                <div class="ml-0.5 font-medium text-secondary">
+                                    <ng-container *ngIf="headersCount > 0">
+                                        {{headersCount}}
+                                    </ng-container>
+                                    {{headersCount | i18nPlural: {
+                                    '=0'   : 'No configurations',
+                                    '=1'   : 'configurations',
+                                    'other': 'configurations'
+                                } }}
+                                </div>
+                            </div>
+        
+                            <!-- Main actions -->
+                            <div class="flex items-center mt-2 sm:mt-0 md:mt-8">
+                                <!-- Search -->
+                                <div class="flex-auto">
+                                    <mat-form-field
+                                        class="fuse-mat-dense fuse-mat-rounded w-full min-w-50"
+                                        subscriptSizing="dynamic">
+                                        <mat-icon
+                                            class="icon-size-5"
+                                            matPrefix
+                                            [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                                        <input
+                                            matInput
+                                            [formControl]="searchInputControl"
+                                            [autocomplete]="'off'"
+                                            [placeholder]="'Search headers'">
+                                    </mat-form-field>
+                                </div>
+                                <!-- Add header button -->
+                                <button
+                                    class="ml-4"
+                                    mat-flat-button
+                                    [color]="'primary'"
+                                    (click)="createHeader()">
+                                    <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+                                    <span class="ml-2 mr-1">Add</span>
+                                </button>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-1 mx-0   " > 
+
+                                <div class="sm:col-span-1"> 
+
+                                    <div class="flex items-center mt-2 sm:mt-0 md:mt-8">
+                                        <div class="grid grid-cols-1 sm:grid-cols-1 mx-0"> 
+                                            <mat-radio-group [formControlName]="'select_elabled_disabled'">
+                                                <mat-radio-button *ngFor="let opcao of optionsEnabledDisabled" [value]="opcao.id" class="radio-button">{{ opcao.label }}</mat-radio-button>
+                                            </mat-radio-group> 
+                                        </div> 
+
+                                    </div> 
+
+                                      
+                                      
+                                </div>  
+
+                            </div>
+
+                            <!-- select --> 
+                            <div class="grid grid-cols-1 sm:grid-cols-1 mx-0   " > 
+            
+                                <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">   
+
+                                    
+                                    <div class="sm:col-span-1">
+                                        <mat-form-field
+                                            class="w-full"
+                                            [subscriptSizing]="'dynamic'">
+                                            <mat-label>Country</mat-label>
+                                            <mat-icon
+                                                class="icon-size-5"
+                                                [svgIcon]="'heroicons_solid:globe'"
+                                                matPrefix></mat-icon>
+                                            <mat-select [formControlName]="'select_enum_country'" >
+                                                <mat-option *ngFor="let opcao of enum_country" [value]="opcao.id">{{ opcao.name }}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div> 
+                                    
+                                    <div class="sm:col-span-1">
+                                        <mat-form-field
+                                            class="w-full"
+                                            [subscriptSizing]="'dynamic'">
+                                            <mat-label>Operations Type</mat-label> 
+                                            <mat-icon
+                                                class="icon-size-5"
+                                                [svgIcon]="'heroicons_solid:chip'"
+                                                matPrefix></mat-icon>
+                                            <mat-select [formControlName]="'select_enum_operation_type'" >
+                                                <mat-option *ngFor="let opcao of enum_operation_type" [value]="opcao.id">{{ opcao.name }}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="sm:col-span-1">
+                                        <mat-form-field
+                                            class="w-full"
+                                            [subscriptSizing]="'dynamic'">
+                                            <mat-label>Brand</mat-label> 
+                                            <mat-icon
+                                                class="icon-size-5"
+                                                [svgIcon]="'heroicons_solid:credit-card'"
+                                                matPrefix></mat-icon>
+                                            <mat-select [formControlName]="'select_enum_brand'" >
+                                                <mat-option *ngFor="let opcao of enum_brand" [value]="opcao.id">{{ opcao.name }}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+        
+                                </div>  
+
+                            </div>
+                            
+                        </div>
+        
+                        <!-- list headers -->
+                        <div class="relative"> 
+
+                            <ng-container *ngIf="Configurations.length; else noHeaders">
+
+                                <ng-container *ngFor="let header of Configurations;  ">
+                                    
+                                    <!-- header -->
+                                    <a 
+                                        class="z-20 flex items-center px-6 py-4 md:px-8 cursor-pointer border-b"
+                                            >
+                                        
+                                        <div class="flex flex-0 items-center justify-center w-10 h-10 rounded-full overflow-hidden" (click)="openPopup(header)">
+                                            <ng-container *ngIf="header.avatar">
+                                                <img
+                                                    class="object-cover w-full h-full"
+                                                    [src]="header.avatar"
+                                                    alt="header avatar"/>
+                                            </ng-container>
+                                            <ng-container *ngIf="!header.avatar">
+                                                <div class="flex items-center justify-center w-full h-full rounded-full text-lg uppercase bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200">
+                                                    {{header.name.charAt(0)}}
+                                                </div>
+                                            </ng-container>
+                                        </div>
+                                        <div class="min-w-0 ml-4">
+                                            <div class="font-medium leading-5 truncate">{{header.name}}</div>
+                                            <div class="leading-5 truncate text-secondary">{{header.enum_operation_type.name}}</div>
+                                        </div>
+                                        <div class="flex items-center ml-auto mb-1"> 
+                                            <div class="min-w-0 ml-4">
+                                                <div class="font-medium leading-5 truncate">{{header.environment.name}}</div>
+                                                <div class="leading-5 truncate text-secondary ">{{header.version}}</div>  
+                                            </div>
+
+                                            <!-- Actions  Menu-->
+                                            <div class="flex items-center ml-auto mb-1">
+                                                <button
+                                                    mat-icon-button
+                                                    [matMenuTriggerFor]="headerMenu">
+                                                    <mat-icon class="icon-size-5">more_vert</mat-icon>
+                                                </button>
+                                                <mat-menu #headerMenu="matMenu">
+                                                    <button mat-menu-item *ngFor="let menuItem of menuList" (click)="ActionMenu(menuItem.action, header)" >
+                                                        <mat-icon>{{ menuItem.icon }}</mat-icon> {{ menuItem.label }}
+                                                    </button>
+                                                </mat-menu>
+                                            </div>
+
+                                        </div>
+                                        
+
+                                    </a>
+                                </ng-container>
+
+                            </ng-container>
+ 
+
+                            <!-- No headers -->
+                            <ng-template #noHeaders>
+                                <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">There are no configurations!</div>
+                            </ng-template>
+
+                        </div>
+
+                    </div>
+
+                </mat-drawer-content>
+
+            </mat-drawer-container>
+
+    </form>
+
+</div>

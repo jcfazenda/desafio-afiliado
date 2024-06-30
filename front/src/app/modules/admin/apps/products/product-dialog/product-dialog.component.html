@@ -1,0 +1,189 @@
+<div class="flex  flex-auto flex-col">
+
+  <div class="mt-1 sm:p-1 flex flex-col">
+
+    <div class="drawer-header">
+      <button (click)="close()" class="close-button">
+        <mat-icon svgIcon="mat_outline:close"></mat-icon>
+      </button>
+    </div>
+
+    <!-- Linha de Divisão -->
+    <div class="w-full mt-1 p-1">
+      <mat-divider class="my-2"></mat-divider>
+    </div>
+
+  </div>
+
+      <!-- video ou thumbnail -->
+      <div class="mt-1 sm:p-1 flex flex-col">
+
+        <div class="flex flex-col justify-start text-left" *ngIf="type == 'card' ">
+          <mat-radio-group [(ngModel)]="card.isVideo" aria-label="Select an option">
+              <mat-radio-button [value]="false" (click)="setVideo(false)">Thumbnail</mat-radio-button> 
+              <mat-radio-button [value]="true" (click)="setVideo(true)">Video Youtube</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+      </div>
+
+      <form [formGroup]="formGroup">
+
+        <div *ngIf="type=='card'">  
+
+            <div class="w-full mt-1 p-2"></div> 
+
+            <!-- video ou thumbnail -->
+            <div class="flex flex-col items-start justify-between sm:flex-row">
+
+              <mat-card class="custom-card w-full" appearance="outlined">
+
+                <div class="flex flex-col md:flex-row w-full">
+
+                    <div class="m-1 flex w-full max-w-3xl flex-wrap items-left justify-left">
+
+                        <div class="video-container" *ngIf="card.isVideo == false">
+                          <label>
+                            <img mat-card-image [src]="card.thumbnail" alt="Thumbnail" style="width: 100%; height: auto;">
+                          </label>
+                        </div>
+
+                        <div class="video-container" *ngIf="card.isVideo == true">
+                          <iframe [src]="safeURL" title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                          </iframe>
+                        </div>
+
+                    </div>
+
+                    <!-- title and stars -->
+                    <div class="m-1 mb-4 flex flex-auto flex-col md:ml-4">
+                      <div class="text-0xl font-semibold leading-tight"> {{card.title}} </div>
+                      <div class="mb-4 flex items-center leading-none">
+                        <div class="text-secondary">{{card.subtitle}}</div>
+                      </div>
+                    </div>
+
+                    <!-- price -->
+                    <div class="flex flex-col justify-end ml-auto text-right">
+
+                      <div class="text-xl font-bold">R$ {{ card.price }}</div>
+                      <div class="text-sm text-gray-500">{{ card.prices[0].price_installment }}</div>
+                      <button mat-button class="mt-2 bg-blue-500 text-white px-4 py-2 rounded"
+                        (click)="navigateToLink('a123')">COMPRAR
+                      </button>
+
+                    </div>
+
+                </div>
+
+              </mat-card>
+
+            </div>
+
+            <div class="w-full mt-1 p-2"></div> 
+
+            <!-- Configurações e Preço -->
+            <mat-tab-group [animationDuration]="'0ms'">  
+
+              <mat-tab label="Configuração">
+  
+                  <div class="mt-4 sm:p-1 flex flex-col">
+
+                    <mat-form-field class="gt-xs:pr-3 flex-auto">
+                      <mat-label>Titulo</mat-label>
+                      <input matInput formControlName="card_title" [placeholder]="'titulo'" />
+                    </mat-form-field>
+                    
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Descrição</mat-label>
+                      <textarea matInput formControlName="card_subtitle" placeholder="descrição">descrição</textarea>
+                    </mat-form-field>
+                    
+                    <mat-form-field class="gt-xs:pr-8 flex-auto">
+                      <mat-label>Informe aqui o link do seu vídeo. *</mat-label>
+                      <input matInput formControlName="card_link_video" [placeholder]="'url'" />
+                      <button mat-icon-button matSuffix (click)="setUrl()">
+                        <mat-icon>check_circle</mat-icon>
+                      </button>
+                    </mat-form-field>
+
+                  </div>  
+  
+              </mat-tab>
+  
+              <mat-tab label="Preços"> 
+
+                <div class="flex items-center space-x-4">
+
+                  <!-- Campo Preço -->
+                  <mat-form-field floatLabel="always" class="flex-1">
+                    <mat-label>Preço</mat-label>
+                    <input matInput formControlName="card_price" class="example-right-align" placeholder="0" />
+                    <span matTextPrefix>R$&nbsp;</span>
+                    <span matTextSuffix> 
+                    </span>
+                  </mat-form-field>
+                
+                  <!-- Campo Quantas Vezes -->
+                  <mat-form-field floatLabel="always" class="flex-1">
+                    <mat-label>Quantas vezes?</mat-label>
+                    <input matInput formControlName="card_price_num" class="example-right-align" placeholder="0" />
+                  </mat-form-field>
+                
+                  <!-- Campo Máximo de Parcelas -->
+                  <mat-form-field floatLabel="always" class="flex-1">
+                    <mat-label>Máximo de Parcelas</mat-label>
+                    <input matInput formControlName="card_max_installments" class="example-right-align" placeholder="0" />
+                  </mat-form-field>
+                
+                  <!-- Botão Aplicar -->
+                  <button mat-button class="ml-2" (click)="generateInstallments()">Aplicar</button>
+                
+                </div>
+                
+
+
+                    <!-- grid pixels -->
+                    <div class="col-span-1" *ngFor="let installment of installments">
+
+                      <div class="sm:p-1 mt-0 grid w-full min-w-0 grid-cols-1 gap-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2"> 
+                          <div class="text-secondary col-span-8 text-0xl font-semibold leading-tight flex items-center">
+                               <mat-icon svgIcon="tangerine-svgrepo-com" class="icon-size-5 mr-1"></mat-icon> 
+                              <span>{{installment.description}}  {{installment.interestFree}}</span>
+                          </div>
+                          <div class="text-secondary text-right text-md font-medium">Total: {{installment.amount}}</div>  
+                          <div class="col-span-12 my-0 border-b"></div> 
+                      </div>
+
+                  </div>   
+  
+              </mat-tab>  
+            </mat-tab-group> 
+ 
+            <div class="mt-0 sm:p-1 flex flex-col">
+              <button class="fuse-mat-button-large mt-10 w-full" mat-flat-button [color]="'accent'" (click)="save()">
+                SALVAR
+              </button>
+            </div>
+
+        </div>
+
+        <div *ngIf="type=='thumbnail'"> 
+
+          <mat-tab-group [animationDuration]="'0ms'">  
+
+            <mat-tab label="Configuração">
+
+
+
+            </mat-tab>
+
+          </mat-tab-group>
+
+        </div>
+
+      </form>  
+
+</div>

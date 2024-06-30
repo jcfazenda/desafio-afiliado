@@ -1,0 +1,208 @@
+
+    <!-- Main -->
+    <form [formGroup]="formGroup" >
+ 
+        <!-- Card -->
+        <div class="p-1">
+
+
+                <div class="row p-2">
+
+                        <!-- name payment -->
+                        <div class="col-md-4"> 
+
+                        <div class=" 0">
+                            <div class="flex flex-col items-center p-8  lg:px-8 lg:py-8 lg:min-w-100 bg-gray-100 dark:bg-black dark:bg-opacity-10">
+
+                                <div class="flex items-center whitespace-nowrap">
+                                    <div class="text-5xl font-extrabold tracking-tight">{{configuration.enum_country.name}}</div>
+                                    <div class="ml-2 text-2xl font-semibold text-secondary">
+                                        <img
+                                            class="object-cover w-full h-full  w-8 h-8 rounded-full text-center"
+                                            [src]="configuration.avatar"
+                                            alt="header avatar"/>
+                                    </div>
+                                </div>
+                                <div class="font-medium text-center text-secondary">
+                                    <div>{{configuration.version}}</div>
+                                    <div class="p-8">                               
+                                        <br><br>
+                                    </div>
+                                </div>
+                                <button
+                                    (click)="execute()"
+                                    class="w-full mt-10 lg:mt-auto"
+                                    mat-flat-button
+                                    [color]="'primary'">
+                                    JSON
+                                </button>
+                            </div>
+                        </div>
+                    </div>  
+
+                     <!-- consfigurations payment -->
+                    <div class="col-md-8"> 
+
+                        <div class=" ">
+                            <div class="text-2xl font-bold">
+                                    {{ configuration.name}}
+                            </div>
+                            <div class="mt-2 leading-relaxed text-secondary">
+                                {{ configuration.description?.slice(0, 99) }} ...
+                            </div>
+                            <div class="flex items-center mt-10">
+                                <div class="font-medium text-secondary"></div>
+                                <div class="flex-auto ml-2 border-b-2"></div>
+                            </div>
+                            <!-- Features -->
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-4 mt-6">
+                                <div class="flex items-center">
+                                    <mat-icon
+                                        class="icon-size-5 text-primary"
+                                        [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
+                                    <div class="ml-2">{{configuration.enum_country.name}}</div>
+                                </div>
+                                <div class="flex items-center">
+                                    <mat-icon
+                                        class="icon-size-5 text-primary"
+                                        [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
+                                    <div class="ml-2">{{configuration.enum_brand.name}}</div>
+                                </div>
+                                <div class="flex items-center">
+                                    <mat-icon
+                                        class="icon-size-5 text-primary"
+                                        [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
+                                    <div class="ml-2">{{configuration.enum_operation_type.name}}</div>
+                                </div>
+                                <div class="flex items-center">
+                                    <mat-icon
+                                        class="icon-size-5 text-primary"
+                                        [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
+                                    <div class="ml-2">{{configuration.version}}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>     
+
+
+
+                </div>   
+
+        </div>
+
+        <!-- Tabs -->
+        <div class="flex flex-col mt- px-1 pt-1 p-1 ">
+            <div class=" ">
+                
+                <mat-tab-group
+                    class="sm:px-2"
+                    mat-stretch-tabs="false"
+                    [animationDuration]="'0'"
+                    [(selectedIndex)]="selectedTabIndex">
+
+                    <!-- Team -->
+                    <mat-tab>
+                        <ng-template mat-tab-label>
+                            <span class="inline-flex items-center space-x-2">
+                                <span class="">Request Json</span>
+                                <span class="px-2 py-1 text-sm rounded-full bg-primary-100 text-on-primary-100">
+                                    <mat-icon svgIcon="heroicons_outline:academic-cap"></mat-icon>
+                                </span>
+                            </span>
+                        </ng-template>
+                        <ng-template matTabContent>
+            
+                            <div class="code-container">
+                                <textarea class="code w-full h-200"
+                                            [formControlName]="'json_request'">code: {{ json_request  | json}}</textarea>
+                            </div>
+
+                            <div class="flex flex-col items-center p-1 lg:px-12 lg:py-12 lg:min-w-10">
+                                <button
+                                    (click)="execute()"
+                                    class="w-full mt-8 lg:mt-auto"
+                                    mat-flat-button
+                                    [color]="'primary'">
+                                    Execute test
+                                </button>
+                            </div>
+
+                        </ng-template>
+                    </mat-tab>
+
+                    <!-- return transaction --> 
+                    <mat-tab label="Status Items">
+                        <ng-template matTabContent> 
+
+                                <div class="flex flex-col mt- px-1 pt-2 p-1 "> 
+            
+                                    <h4 class="text-2xl font-semibold tracking-tight leading-8 text-green-600">Transação Aprovada</h4>
+        
+                                    <div class="p-3 mt-4 space-y-2">
+        
+                                        <ng-container> 
+                                            <div class="flex flex-col mt-2 text-secondary">
+                                                <div><b>HEADER</b></div>
+                                                <div></div>
+                                            </div>  
+                                        </ng-container>
+        
+                                            <!-- header --> 
+                                        <div class="flex" *ngFor="let item of transaction_header;  ">
+                                            <mat-icon
+                                                class="icon-size-5 text-green-600"
+                                                [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                                            <div class="ml-2 leading-5"><b>{{item.item}}: </b> {{ item.value}}</div>
+                                        </div>
+        
+                                        <div class="flex flex-col mt-2 text-secondary">
+                                            <br>
+                                        </div>
+        
+                                        <ng-container> 
+                                            <div class="flex flex-col mt-2 text-secondary">
+                                                <div><b>Payload</b></div>
+                                                <div></div>
+                                            </div>  
+                                        </ng-container>
+        
+                                            <!-- transaction --> 
+                                        <div class="flex" *ngFor="let item of payload;  ">
+
+                                            <mat-icon  class="icon-size-5 text-green-600" svgIcon="price_check" *ngIf="item.value != 'no process' "></mat-icon>
+                                            <mat-icon  class="icon-size-5 text-red-600"   svgIcon="heroicons_outline:shield-exclamation" *ngIf="item.value == 'no process' "></mat-icon>
+
+                                            <div class="ml-2 leading-5"><b>{{item.name}}: </b> 
+                                                <a [ngClass]="{'text-red-600': item.value == 'no process'}">{{ item.value }}</a>
+                                            </div>    
+
+                                        </div>
+        
+                                    </div> 
+            
+                                </div> 
+                                            
+                        </ng-template>
+                    </mat-tab>
+
+                    <!-- Budget -->
+                    <mat-tab label="ISO">
+                        <ng-template matTabContent> 
+
+                            <div class="code-container">
+                                <textarea class="code w-full h-200"
+                                            [formControlName]="'json_response'">code: {{ json_response  | json}}</textarea>
+                            </div>      
+
+                        </ng-template>
+                    </mat-tab>
+
+                </mat-tab-group>
+
+            </div>
+        </div>
+  
+ 
+</form>
+ 

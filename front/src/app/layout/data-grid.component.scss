@@ -1,0 +1,33 @@
+/* Estilos adicionais para o datagrid */
+.mat-header-cell, .mat-cell {
+    padding: 16px;
+  }
+  
+  .font-semibold {
+    font-weight: 600;
+  }
+  
+  .leading-tight {
+    line-height: 1.25;
+  }
+  
+  .bg-green-200 {
+    background-color: #bbf7d0;
+  }
+  
+  .text-green-800 {
+    color: #065f46;
+  }
+  
+  .bg-red-200 {
+    background-color: #fecaca;
+  }
+  
+  .text-red-800 {
+    color: #991b1b;
+  }
+  
+  .rounded-full {
+    border-radius: 9999px;
+  }
+  

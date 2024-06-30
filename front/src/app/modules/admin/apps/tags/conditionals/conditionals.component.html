@@ -1,0 +1,175 @@
+ 
+
+    <!-- Main -->
+    <form [formGroup]="formGroup">
+
+        <div class="flex-auto -mt-px">
+  
+            <!-- edit --> 
+            <div  *ngIf="testMacro == false">
+
+                <!--  -->
+                <div class="flex flex-col mt-1 divide-y" >
+
+                    <div class="flex flex-col items-center lg:px-16 lg:py-12 lg:min-w-70 bg-gray-100 dark:bg-black dark:bg-opacity-10">
+                   
+                        <div class="font-medium text-center text-secondary">
+                            <div>{{path.name}}</div> 
+                        </div>
+                        
+                        <div class="flex items-center whitespace-nowrap">
+                            <div class="text-3xl font-extrabold tracking-tight">{{path.path_in | uppercase }}</div> 
+                        </div>
+
+                        <!-- button  -->
+                        <div class="  flex flex-col flex-auto p-1 ">
+
+                            <br>
+                            <button
+                                class="w-full mt-4 lg:mt-auto"
+                                mat-flat-button
+                                [color]="'primary'"
+                                >
+                                + add template
+                            </button>
+                        </div> 
+
+                    </div>
+
+                </div>
+ 
+
+                <!-- list macros --> 
+                <div class="flex flex-col mt-2 divide-y"></div> 
+
+                <div *ngIf="macros.length > 0"> 
+                    
+                    <div *ngFor="let macro of macros"> 
+
+                        <ng-container>  <!-- border-b -->
+                            
+                            <a class="z-6 flex  px-6 py-4 md:px-1 cursor-pointer border-b " >
+                                
+                                <div class="min-w-0 ml-4">
+
+                                    <div class="font-medium leading-8 truncate">Template: {{ macro.macro_path.macro.name }}</div>
+                                    <div class="leading-5 truncate text-secondary">
+                                        <a class="text-secondary"> {{macro.macro_path.macro.description?.slice(0, 23)}} ...</a>
+                                    </div>
+                                        
+                                </div>
+                                <div class="flex items-center ml-auto mb-1"> 
+
+                                    <div class="min-w-0 ml-4">
+                                        <div class="font-medium leading-5 truncate">
+
+                                            <!-- Actions -->
+                                            <div class="flex items-center ml-auto mb-1">
+                                                <button
+                                                    mat-icon-button
+                                                    [matMenuTriggerFor]="headerMenu">
+                                                    <mat-icon class="icon-size-5">more_vert</mat-icon>
+                                                </button>
+                                                <mat-menu #headerMenu="matMenu">
+                                                    <button mat-menu-item *ngFor="let menuItem of menuList" (click)="ActionMenu(menuItem.action, macro)">
+                                                        <mat-icon>{{ menuItem.icon }}</mat-icon> {{ menuItem.label }}
+                                                    </button>
+                                                </mat-menu>
+                                            </div>
+
+                                        </div>
+                                        <div class="leading-5 truncate text-secondary "></div>  
+                                    </div>
+
+                                </div>
+                            </a>
+
+                        </ng-container>
+
+                    </div>
+
+                </div>
+
+                <div class=" px-6 py-4 text-2xl font-bold"></div>
+
+                <mat-radio-group
+                    class="flex flex-col" [color]="'primary'" [value]="'just-good'">
+
+                    <mat-radio-button
+                        class="mb-1"
+                        checked
+                        [value]="'everything'">
+                        Path In
+                    </mat-radio-button>
+
+                    <mat-radio-button
+                        class="mb-1"
+                        [value]="'just-good'">
+                        Path Out
+                    </mat-radio-button>
+
+                </mat-radio-group>
+
+                    <!-- name and description -->
+                    <div class="flex flex-col mt- px-1 pt-2  ">
+                        
+                        <!-- Description -->
+                        <div class="sm:col-span-4">
+                            <mat-form-field
+                                class="w-full"
+                                [subscriptSizing]="'dynamic'">
+                                <textarea
+                                    matInput
+                                    [formControlName]="'postman_input'"
+                                    cdkTextareaAutosize
+                                    [cdkAutosizeMinRows]="10"></textarea>
+                            </mat-form-field> 
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="flex flex-col mt- px-1 pt-2  " >
+
+                        <div class="sm:col-span-4" >
+
+                            <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+
+                                <mat-label>Result</mat-label>
+                                
+                                <textarea
+                                    matInput
+                                    cdkTextareaAutosize 
+                                    [cdkAutosizeMinRows]="4" 
+                                    [options]="{ languages: ['json'] }" 
+                                    [formControlName]="'pontman_result'" 
+                                    placeholder="..." 
+                                    class="blue-text" 
+                                    > 
+                                </textarea>
+                                
+                             </mat-form-field>
+                                
+                        </div>
+
+                    </div> 
+
+                    <!-- button test -->
+                    <div class="  flex flex-col flex-auto p-3 ">
+
+                        <br>
+                        <button
+                           (click)="test()"
+                            class="w-full mt-4 lg:mt-auto"
+                            mat-flat-button
+                            [color]="'primary'"
+                            >
+                            TEST
+                        </button>
+                    </div> 
+        
+            </div> 
+ 
+        </div>
+
+    </form>
+         

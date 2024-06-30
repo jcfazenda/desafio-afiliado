@@ -1,0 +1,342 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+
+    <form [formGroup]="formGroup">
+
+            <!-- Conteúdo do drawer -->
+            <mat-drawer mode="side" position="end" [opened]="isDrawerOpen">
+
+                <div class="w-240 min-w-240 p-2">
+
+                    <!-- Main -->
+                    <div class="inline-block p-6 sm:p-10 text-left print:p-0">
+            
+                        <!-- Invoice -->
+                        <div class="flex flex-wrap w-full max-w-screen-xl mx-auto p-6 md:p-3">
+
+                                <!-- Title and action buttons -->
+                                <div class="flex items-center justify-between w-full">
+                                    <div>
+                                        <h2 class="text-3xl font-semibold tracking-tight leading-8">Templates</h2>
+                                        <div class="font-medium tracking-tight text-secondary">Keep track of your templates status</div>
+                                    </div>
+                                    <div class="flex items-center ml-6">
+                                        <button
+                                            class="hidden sm:inline-flex"
+                                            mat-stroked-button>
+                                            <mat-icon
+                                                class="icon-size-5"
+                                                [svgIcon]="'heroicons_solid:document-report'"></mat-icon>
+                                            <span class="ml-2">Reports</span>
+                                        </button>
+                                        <button
+                                            class="hidden sm:inline-flex ml-3"
+                                            mat-stroked-button>
+                                            <mat-icon
+                                                class="icon-size-5"
+                                                [svgIcon]="'heroicons_solid:cog'"></mat-icon>
+                                            <span class="ml-2">Settings</span>
+                                        </button>
+                                        <button
+                                            class="hidden sm:inline-flex ml-3"
+                                            mat-flat-button
+                                            [color]="'primary'">
+                                            <mat-icon
+                                                class="icon-size-5"
+                                                [svgIcon]="'heroicons_solid:save'"></mat-icon>
+                                            <span class="ml-2">Export</span>
+                                        </button>
+
+                                        <!-- Actions menu (visible on xs) -->
+                                        <div class="sm:hidden">
+                                            <button
+                                                [matMenuTriggerFor]="actionsMenu"
+                                                mat-icon-button>
+                                                <mat-icon [svgIcon]="'heroicons_outline:dots-vertical'"></mat-icon>
+                                            </button>
+                                            <mat-menu #actionsMenu="matMenu">
+                                                <button mat-menu-item>Export</button>
+                                                <button mat-menu-item>Reports</button>
+                                                <button mat-menu-item>Settings</button>
+                                            </mat-menu>
+                                        </div>
+                                    </div>
+                                </div>
+  
+                        </div>
+
+                        <div class="inline-block p-4 sm:p-4 text-left print:p-0"></div>
+
+                            <!-- list tags -->
+                            <div class="relative">
+
+                                <ng-container>
+    
+                                    <ng-container *ngIf="Templates.length; else noTemplate"> 
+    
+                                        <ng-container *ngFor="let item of Templates; ">
+    
+                                            <!-- tags -->
+                                            
+                                            <a
+                                                class="z-1 flex items-center px-2 py-4 md:px-2 cursor-pointer border-b">
+                                                    
+                                                    <div class="min-w-0 ml-1"  (click)="openPopupTemplate(item)">
+    
+                                                        <div class="font-medium leading-5 truncate">{{ item.name | uppercase }}</div>
+                                                        <div class="leading-5 truncate text-secondary">
+                                                            {{ item.description.length > 91 ? (item.description | slice:0:91) + '...' : item.description }}
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="flex items-center ml-auto mb-1"> 
+                                                        <div class="min-w-0 ml-4">
+                                                            <div class="font-medium leading-5 truncate">
+                                                                    ...
+                                                            </div>
+                                                            <div class="leading-5 truncate text-secondary"></div>  
+                                                        </div>
+                                                    </div>
+                                            </a>
+    
+                                        </ng-container>
+    
+                                    </ng-container>
+    
+                                </ng-container>
+    
+                                <!-- No tags -->
+                                <ng-template #noTemplate>
+                                    <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">There are no templates!</div>
+                                </ng-template>
+    
+                            </div>
+
+                            <div class="mt-16">
+                                <div class="font-medium">Please pay within 15 days. Thank you for your business.</div>
+                                <div class="flex items-start mt-4">
+                                    <img
+                                        class="flex-0 w-10 mt-2"
+                                        src="assets/images/logo/logo.svg">
+                                    <div class="ml-6 text-sm text-secondary">
+                                        In condimentum malesuada efficitur. Mauris volutpat placerat auctor. Ut ac congue dolor. Quisque scelerisque lacus sed feugiat fermentum.
+                                        Cras aliquet facilisis pellentesque. Nunc hendrerit quam at leo commodo, a suscipit tellus dapibus. Etiam at felis volutpat est mollis lacinia.
+                                        Mauris placerat sem sit amet velit mollis, in porttitor ex finibus. Proin eu nibh id libero tincidunt lacinia et eget.
+                                    </div>
+                                </div>
+                            </div>
+
+                     </div>
+
+                </div>
+                             
+            </mat-drawer>
+
+
+            <!-- tags -->
+            <mat-drawer-container class="flex-auto h-full bg-card dark:bg-transparent" >
+
+                <mat-drawer-content class="flex flex-col">
+
+                    <div class="flex-auto">
+
+                        <!-- TAGS -->
+                        <div class="flex flex-col sm:flex-row md:flex-col flex-auto justify-between py-8 px-6 md:px-8 border-b">
+
+                            <div class="flex mt-4 sm:mt-4" *ngIf="configuration?.name">
+                                
+                                <!-- cads -->
+                                <fuse-card class="flex flex-col lg:flex-row max-w-sm lg:max-w-240">
+            
+                                    <div class="flex flex-col items-center p-8 lg:px-10 lg:py-12 lg:min-w-80 bg-gray-100 dark:bg-black dark:bg-opacity-10">
+
+                                        <div class="flex items-center whitespace-nowrap">
+                                            <div class="text-8xl font-extrabold tracking-tight">Paths</div>
+                                            <div class="ml-2 text-2xl font-semibold text-secondary">{{ pathCount }} items</div>
+                                        </div>
+                                        <div class="font-medium text-center text-secondary p-5">
+                                            <div>No monthly subscription,</div>
+                                            <div>...</div>
+                                        </div>
+
+                                        <div class=" lg:p-1 gap-y-4 mt-6">
+                                            <div class="flex items-center">
+                                                    <button
+                                                    class="w-full mt-8 lg:mt-auto gap-y-4 mt-6"
+                                                    mat-flat-button
+                                                    [color]="'accent'"
+                                                    (click)="toggleDrawer()">
+                                                    Templates
+                                                </button>
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="p-6 sm:p-8 lg:p-10">
+                                        <div class="text-3xl font-bold">{{configuration.name}}</div>
+                                        <div class="mt-2 leading-relaxed text-secondary">
+                                            {{ configuration.description?.slice(0, 99) }} ...
+                                        </div>
+                                        <div class="flex items-center mt-10">
+                                            <div class="font-medium text-secondary">{{ configuration.environment.name}}</div>
+                                            <div class="flex-auto ml-2 border-b-2"></div>
+                                        </div>
+                                        <!-- Features -->
+                                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-4 mt-6">
+                                            <div class="flex items-center">
+                                                <mat-icon
+                                                    class="icon-size-5 text-primary"
+                                                    [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
+                                                <div class="ml-2">{{configuration.enum_country.name}}</div>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <mat-icon
+                                                    class="icon-size-5 text-primary"
+                                                    [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
+                                                <div class="ml-2">{{configuration.enum_brand.name}}</div>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <mat-icon
+                                                    class="icon-size-5 text-primary"
+                                                    [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
+                                                <div class="ml-2">{{configuration.enum_operation_type.name}}</div>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <mat-icon
+                                                    class="icon-size-5 text-primary"
+                                                    [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
+                                                <div class="ml-2">Version 1.2</div>
+                                            </div>
+                                        </div>
+ 
+                                        <div class="grid grid-cols-1 sm:p-1 lg:p-1 gap-y-4 mt-6">
+                                            <div class="flex items-center">
+                                                    <button
+                                                    class="w-full mt-8 lg:mt-auto gap-y-4 mt-6"
+                                                    mat-flat-button
+                                                    [color]="'primary'"
+                                                    [routerLink]="['/apps/contacts']">
+                                                    Goto Configurations
+                                                </button>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </fuse-card>
+                            </div>
+    
+                            <!-- Main actions -->
+                            <div class="flex items-center mt-2 sm:mt-0 md:mt-8">
+                                <!-- Search -->
+                                <div class="flex-auto">
+                                    <mat-form-field
+                                        class="fuse-mat-dense fuse-mat-rounded w-full min-w-50"
+                                        subscriptSizing="dynamic">
+                                        <mat-icon
+                                            class="icon-size-5"
+                                            matPrefix
+                                            [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                                        <input
+                                            matInput
+                                             
+                                            [autocomplete]="'off'"
+                                            [placeholder]="'Search tags'">
+                                    </mat-form-field>
+                                </div>
+                                <!-- Add tag button -->
+                                <button
+                                    class="ml-4"
+                                    mat-flat-button
+                                    [color]="'primary'"
+                                    (click)="openPopup(null)">
+                                    <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+                                    <span class="ml-2 mr-1">Add</span>
+                                </button>
+                            </div>
+
+                            <!-- type options -->
+                            <div class="grid grid-cols-1 sm:grid-cols-1 mx-0   " > 
+
+                                <div class="sm:col-span-1"> 
+
+                                    <div class="flex items-center mt-2 sm:mt-0 md:mt-8">
+                                        <div class="grid grid-cols-1 sm:grid-cols-1 mx-0"> 
+                                            <mat-radio-group [formControlName]="'select_type'">
+                                                <mat-radio-button *ngFor="let opcao of typeOptionsResponseRequest" [checked]="opcao.checked"  
+                                                                  [value]="opcao.id" class="radio-button">{{ opcao.label }}</mat-radio-button>
+                                            </mat-radio-group> 
+                                        </div> 
+
+                                    </div> 
+
+                                    <div class="flex items-center mt-2 sm:mt-0 md:mt-1">
+                                        <div class="flex flex-col mt-2 gt-sm:mt-0 gt-sm:ml-16">
+                                        </div>
+                                    </div>
+  
+                                      
+                                </div>  
+
+                            </div>
+                            
+                        </div>
+        
+                        <!-- list tags -->
+                        <div class="relative">
+
+                            <ng-container>
+
+                                <ng-container *ngIf="Paths.length; else noTags"> 
+
+                                    <ng-container *ngFor="let tag of Paths; ">
+ 
+                                        <!-- tags -->
+                                        
+                                        <a
+                                            class="z-20 flex items-center px-6 py-4 md:px-8 cursor-pointer border-b">
+                                                
+                                                <div class="min-w-0 ml-4"  (click)="openPopup(tag)">
+
+                                                    <div class="font-medium leading-5 truncate">{{ tag.name | uppercase }}</div>
+                                                    <div class="leading-5 truncate text-secondary">
+                                                        Sub items:
+                                                        {{ tag.paths.length === 1 && tag.paths[0].name === tag.name ? '0' : tag.paths.length }}
+                                                      </div>
+                                                      
+                                                </div>
+                                                <div class="flex items-center ml-auto mb-1"> 
+                                                    <div class="min-w-0 ml-4">
+                                                        <div class="font-medium leading-5 truncate">
+                                                                ...
+                                                        </div>
+                                                        <div class="leading-5 truncate text-secondary"></div>  
+                                                    </div>
+                                                </div>
+                                        </a>
+
+                                    </ng-container>
+
+                                </ng-container>
+
+                            </ng-container>
+
+                            <!-- No tags -->
+                            <ng-template #noTags>
+                                <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">There are no paths!</div>
+                            </ng-template>
+
+                        </div>
+
+                    </div>
+
+                </mat-drawer-content>
+
+            </mat-drawer-container>
+
+    </form>
+
+</div>

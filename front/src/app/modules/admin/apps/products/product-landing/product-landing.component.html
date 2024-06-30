@@ -1,0 +1,311 @@
+<div class="flex min-w-0 flex-auto flex-col">
+
+    <!-- Header -->
+    <div class="bg-card flex flex-col shadow">
+        <!-- Cover image -->
+        <div>
+            <img class="h-40 object-cover lg:h-80" src="assets/images/pages/profile/cover.jpg" alt="Cover image" />
+        </div>
+
+        <!-- User info -->
+        <div class="bg-card mx-auto flex w-full max-w-5xl flex-0 flex-col items-center px-8 lg:h-18 lg:flex-row">
+            <!-- Avatar -->
+            <div class="-mt-26 rounded-full lg:-mt-22">
+                <img class="ring-bg-card h-32 w-32 rounded-full ring-4" src="assets/images/avatars/julio.jpeg"
+                    alt="User avatar" />
+            </div>
+
+            <!-- Details -->
+            <div class="mt-4 flex flex-col items-center lg:ml-8 lg:mt-0 lg:items-start">
+                <div class="text-lg font-bold leading-none">Brian Hughes</div>
+                <div class="text-secondary">London, UK</div>
+            </div>
+
+            <!-- Separator -->
+            <div class="mx-8 hidden h-8 border-l-2 lg:flex"></div>
+
+            <!-- Stats -->
+            <div class="mt-6 flex items-center space-x-6 lg:mt-0">
+
+                <div class="flex flex-col items-center">
+                    <span class="font-bold">1.2k</span>
+                    <span class="text-secondary text-sm font-medium">SEGUIDORES</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="font-bold">200</span>
+                    <span class="text-secondary text-sm font-medium">SEGUINDO</span>
+                </div>
+
+            </div>
+
+            <!-- Menu -->
+            <div class="mb-4 mt-8 flex items-center space-x-6 lg:m-0 lg:ml-auto">
+                <a class="font-medium" [routerLink]="['./']"> Home </a>
+                <a class="text-secondary" [routerLink]="['./']"> Sobre </a>
+                <a class="text-secondary" [routerLink]="['./']"> Seguidores </a>
+                <a class="text-secondary" (click)="goToProduct(card.id)"> Galeria </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex-auto p-1 sm:p-6">
+
+        <!-- video -->
+        <div class="flex flex-col items-start justify-between sm:flex-row">
+
+            <mat-card class="custom-card w-full" appearance="outlined">
+                <div class="flex flex-col md:flex-row w-full">
+
+                    <div class="m-1 flex w-full max-w-3xl flex-wrap items-left justify-left">
+
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/SfFWLq5qhr0" title="YouTube video player"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+
+                    </div>
+
+                    <div class="m-1 mb-4 flex flex-auto flex-col md:ml-4">
+                        <div class="text-0xl font-semibold leading-tight">
+                            {{card.title}}
+                        </div>
+                        <div class="-ml-1 mt-1 flex items-center leading-none">
+                            <div class="flex items-center">
+                                <mat-icon class="text-orange-500 icon-size-5" [svgIcon]="'mat_outline:star'"></mat-icon>
+                                <mat-icon class="text-orange-500 icon-size-5" [svgIcon]="'mat_outline:star'"></mat-icon>
+                                <mat-icon class="text-orange-500 icon-size-5" [svgIcon]="'mat_outline:star'"></mat-icon>
+                                <mat-icon class="text-orange-500 icon-size-5" [svgIcon]="'mat_outline:star'"></mat-icon>
+                                <mat-icon class="text-orange-500 icon-size-5"
+                                    [svgIcon]="'mat_outline:star_half'"></mat-icon>
+                            </div>
+                            <div class="text-secondary ml-2">4.5</div>
+                            <div class="text-secondary mx-2">&bull;</div>
+                            <div class="text-secondary">98 comentários</div>
+                        </div>
+
+                    </div>
+
+                    <!-- Comprar -->
+                    <div class="flex flex-col justify-end ml-auto text-right">
+                        <div class="text-xl font-bold">R$ {{ principalPrice.price }}</div>
+                        <div class="text-sm text-gray-500">{{ principalPrice.price_installment }}</div>
+                        <button mat-button class="mt-2 bg-blue-500 text-white px-4 py-2 rounded"
+                            (click)="navigateToLink(principalPrice.price_link)">COMPRAR</button>
+                    </div>
+
+                </div>
+
+            </mat-card>
+
+        </div>
+
+        <!-- Linha de Divisão -->
+        <div class="w-full mt-4 p-1">
+            <mat-divider class="my-2"></mat-divider>
+        </div>
+
+        <!-- Conteudo dos labels -->
+        <div class="flex-auto p-2 sm:p-6">
+            <div class="col-span-1 p-1 mt-1" *ngFor="let label of productLabels">
+                {{label.text}}
+            </div>
+        </div>
+
+        <!-- Linha de Divisão -->
+        <div class="w-full mt-1 p-1">
+            <mat-divider class="my-2"></mat-divider>
+        </div>
+
+        <!-- tuhumbs -->
+        <div class="p-5">
+            <div class="grid w-full min-w-0 grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+
+                <!-- Card 1 -->
+                <div class="col-span-1" *ngFor="let thumb of card.thumbs">
+                    <mat-card class="custom-card" appearance="outlined">
+
+                        <img mat-card-image src="{{thumb.thumbnail}}" alt="Photo of a Shiba Inu">
+
+                        <div class="min-w-0 flex-1">
+
+                            <div class="flex min-w-3 flex-auto items-center">
+
+                                <div class="mt-2">
+                                    <div class="ml-2 flex min-w-0 flex-col">
+
+                                        <div class="text-0xl font-semibold leading-tight">
+                                            {{thumb.title}}
+                                        </div>
+                                        <div class="-ml-1 mt-1 flex items-center leading-none">
+                                            <div class="flex items-center">
+                                                <mat-icon class="text-orange-500 icon-size-5"
+                                                    [svgIcon]="'mat_outline:star'"></mat-icon>
+                                                <mat-icon class="text-orange-500 icon-size-5"
+                                                    [svgIcon]="'mat_outline:star'"></mat-icon>
+                                                <mat-icon class="text-orange-500 icon-size-5"
+                                                    [svgIcon]="'mat_outline:star'"></mat-icon>
+                                                <mat-icon class="text-orange-500 icon-size-5"
+                                                    [svgIcon]="'mat_outline:star'"></mat-icon>
+                                                <mat-icon class="text-orange-500 icon-size-5"
+                                                    [svgIcon]="'mat_outline:star_half'"></mat-icon>
+                                            </div>
+                                            <div class="text-secondary ml-2">4.5</div>
+                                            <div class="text-secondary mx-2">&bull;</div>
+                                            <div class="text-secondary">98 comentários</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </mat-card>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="w-full mt-4 p-2"></div>
+
+        <!-- TAB -->
+        <div class="col-span-1">
+
+            <mat-tab-group [animationDuration]="'0ms'">
+
+                <mat-tab label="Qualidade">
+
+                    <!-- quality -->
+                    <div
+                        class="mt-6 grid w-full grid-cols-1 gap-x-3 gap-y-5 sm:mt-7 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+
+                        <div *ngFor="let detail of productDetail">
+                            <div class="flex items-center">
+                                <mat-icon svgIcon="{{detail.icon}}"></mat-icon>
+                                <div class="ml-1 truncate text-0xl font-semibold leading-tight">{{detail.title}}</div>
+                            </div>
+                            <div class="text-secondary mt-2 leading-6">
+                                {{detail.description}}
+                            </div>
+                        </div>
+
+                    </div>
+
+                </mat-tab>
+
+                <mat-tab label="Conteúdo">
+
+
+                    <!-- quality -->
+                    <div class="mt-6 grid w-full grid-cols-1 gap-x-3 gap-y-5 sm:mt-7 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5"> 
+                        <div *ngFor="let content of contents">
+
+                            <div class="mt-1 border-l-2">
+                                <div class="ml-2 flex min-w-0 flex-col">
+                                    <div class="truncate text-0xl font-semibold leading-tight">
+                                        {{content.title.length > 60 ? (content.title | slice:0:60) + '...' : content.title}}  
+                                    </div>
+                                    <div class="flex items-center mt-0">
+                                        <div class="text-secondary ml-1.5 truncate leading-6">
+                                            {{content.description.length  > 60 ? (content.description | slice:0:60) + '...' : content.description}} 
+                                        </div>
+                                    </div>
+                                    <div class="ml-2">
+                                        <ul class="list-disc ml-4">
+                                            <li *ngFor="let detail of content.details"> {{detail.length > 60 ? (detail | slice:0:60) + '...' : detail}} </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> 
+                    </div>
+
+                </mat-tab>
+
+                <mat-tab label="Vantagens">
+
+                    <ul class="list-none p-1" *ngFor="let vantage of productVantages">
+
+                        <li class="mb-1">
+                            <div class="min-w-0 flex-1">
+                                <div class="flex min-w-0 flex-auto items-center">
+
+                                    <div class="h-11 w-11 flex-0 overflow-hidden rounded-full">
+                                        <!-- Adicione o conteúdo da imagem ou ícone aqui, se necessário -->
+                                    </div>
+
+                                    <div class="mt-1">
+                                        <div class="ml-2 flex min-w-0 flex-col">
+                                            <div class="truncate text-0xl font-semibold leading-tight">
+                                                {{vantage.title}}
+                                            </div>
+                                            <div class="flex items-center mt-0">
+                                                <div class="text-secondary ml-1.5 truncate leading-6">
+                                                    {{vantage.description}}
+                                                </div>
+                                            </div>
+                                            <div class="ml-2">
+                                                <ul class="list-disc ml-4">
+                                                    <li *ngFor="let detail of vantage.details">{{detail}}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </mat-tab>
+ 
+            </mat-tab-group>
+
+        </div> 
+ 
+        <!-- Linha de Divisão -->
+        <div class="w-full mt-4 p-8"> 
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="fixed-footer bg-light-gray">
+        <div class=" mx-auto">
+            <div class="flex justify-between items-center space-x-4">
+
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <img class="mt-3" mat-card-image src="{{card.godfather}}" alt="Logo"
+                        style="width: 100px; height: auto;">
+                </div>
+
+                <!-- Separador -->
+                <div class="separator"></div>
+
+                <!-- Preço e Modo de Pagamento -->
+                <div class="flex flex-col flex-1">
+                    <div class="text-4xl font-semibold leading-tight text-black">
+                        R$ {{ principalPrice.price }}
+                    </div>
+                    <div class="text-sm text-gray-500">
+                        {{ principalPrice.price_installment }}
+                    </div>
+                </div>
+
+                <!-- Botão de Comprar -->
+                <div>
+                    <button mat-button class="ml-4 mt-2 bg-blue-500 text-white px-4 py-2 rounded"
+                        (click)="navigateToLink(principalPrice.price_link)">GARANTIR CURSO</button>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+ 
+
+</div>

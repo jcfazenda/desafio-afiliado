@@ -1,0 +1,17 @@
+:host {
+    display: flex;
+    flex: 1 1 auto;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .radio-button {
+    margin-bottom: 8px; /* Adapte o espaçamento conforme necessário */
+  }

@@ -1,0 +1,237 @@
+ 
+
+        <!-- conditionals -->
+        <div class="flex flex-col mt-2" *ngIf="editConditionals == true" >
+
+            <app-conditionals></app-conditionals>
+
+        </div>
+
+        <!-- Main -->
+        <form [formGroup]="formGroup" *ngIf="editConditionals == false">
+
+            <div class="flex-auto -mt-px pt-4 sm:pt-6">
+
+                <div class="w-full max-w-screen-xl mx-auto"> 
+
+                    <!-- Schedule -->
+                    <div class="sm:col-span-2 md:col-span-4 lg:col-span-2 flex flex-col flex-auto p-1 ">
+
+                        <!-- list paths -->
+                        <div class="flex flex-col mt-2 divide-y"  *ngIf="edit == false" >
+
+                            <div class="flex flex-col sm:flex-row items-start justify-center">
+
+                                <div class="flex items-center whitespace-nowrap">
+                                    <div class="text-8xl font-extrabold tracking-tight">Paths</div>
+                                    <div class="ml-2 text-2xl font-semibold text-secondary">{{tag.length}} items</div>
+                                </div>
+                            </div> 
+             
+                            <!-- list paths -->
+                            <div *ngIf="tag" class="p-6"> 
+
+                                <div *ngFor="let path of tag"> 
+
+                                    <ng-container>  <!-- border-b -->
+                                        <a
+                                        class="z-20 flex  px-6 py-4 md:px-1 cursor-pointer " >
+                                            
+                                            <div class="min-w-0 ml-4">
+
+                                                <div class="font-medium leading-8 truncate">{{ path.name }}</div>
+                                                <div class="leading-5 truncate text-secondary">
+                                                   <a class="text-warn"> {{ path.position_iso}} : {{ path.path_in | uppercase }}  </a>
+                                                </div>
+                                                    
+                                            </div>
+                                            <div class="flex items-center ml-auto mb-1"> 
+                                                <div class="min-w-0 ml-4">
+                                                    <div class="font-medium leading-5 truncate">
+
+                                                        <!-- Actions -->
+                                                        <div class="flex items-center ml-auto mb-1">
+                                                            <button
+                                                                mat-icon-button
+                                                                [matMenuTriggerFor]="headerMenu">
+                                                                <mat-icon class="icon-size-5">more_vert</mat-icon>
+                                                            </button>
+                                                            <mat-menu #headerMenu="matMenu">
+                                                                <button mat-menu-item *ngFor="let menuItem of menuList" (click)="ActionMenu(menuItem.action, path)">
+                                                                    <mat-icon>{{ menuItem.icon }}</mat-icon> {{ menuItem.label }}
+                                                                </button>
+                                                            </mat-menu>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="leading-5 truncate text-secondary "></div>  
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </ng-container>
+    
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- edit -->
+                        <div class="flex flex-col mt-2" *ngIf="edit == true" >
+
+                            <div class="flex flex-row items-start justify-between">
+                                <div class="text-lg font-medium tracking-tight leading-6 truncate">EDIT</div> 
+                                    <!-- Actions -->
+                                    <div class="flex items-center ml-auto mb-1">
+                                        <button (click)="back()"
+                                            mat-icon-button
+                                            [matMenuTriggerFor]="headerMenu">
+                                            <mat-icon svgIcon="heroicons_outline:arrow-sm-left"></mat-icon>  <span class="ml-2 mr-1" >back</span>
+                                        </button>
+                                    </div>
+                            </div> 
+
+                            <!-- name and description -->
+                            <div class="flex flex-col mt- px-1 pt-2  ">
+
+                                <!-- name -->
+                                <p class="text-lg font-medium pt-2">Name</p>
+
+                                <div class="flex">
+                                    <mat-form-field class="flex-auto">
+                                        <input
+                                            matInput
+                                            [placeholder]="'name'"
+                                            formControlName="name">
+                                        <mat-icon
+                                            class="icon-size-5"
+                                            matPrefix
+                                            [svgIcon]="'heroicons_solid:pencil'"></mat-icon>
+                                    </mat-form-field>
+                                </div>
+        
+                                <p class="text-lg font-medium pt-2">Path In</p>
+                                <div class="flex">
+                                    <mat-form-field class="flex-auto">
+                                        <input
+                                            matInput 
+                                            formControlName="path_in">
+                                        <mat-icon
+                                            class="icon-size-5"
+                                            matPrefix
+                                            svgIcon="heroicons_outline:chevron-double-right"></mat-icon>
+                                    </mat-form-field>
+                                </div>
+
+                                <p class="text-lg font-medium pt-2">Path Out</p>
+                                <div class="flex">
+
+                                    <mat-form-field
+                                    [ngClass]="formFieldHelpers"
+                                    class="flex-auto"> 
+                                    <input
+                                        matInput 
+                                        formControlName="path_out"> 
+                                    <mat-icon
+                                        class="icon-size-5"
+                                        matSuffix
+                                        svgIcon="heroicons_outline:chevron-double-left"></mat-icon>
+                                </mat-form-field>
+ 
+                                </div>
+
+                                <!-- Description -->
+                                <div class="sm:col-span-4">
+                                    <mat-form-field
+                                        class="w-full"
+                                        [subscriptSizing]="'dynamic'">
+                                        <mat-label>Description</mat-label>
+                                        <textarea
+                                            matInput
+                                            [formControlName]="'description'"
+                                            cdkTextareaAutosize
+                                            max="255"
+                                            [cdkAutosizeMinRows]="5"></textarea>
+                                    </mat-form-field>
+                                    <div class="mt-1 text-md text-hint">255 character limit....</div>
+                                </div>
+
+                            </div>
+
+                            <!-- edit -->
+                            <div class="flex flex-col mt-1 px-1 pt-6  ">
+
+                                <div class="grid grid-cols-3 gap-4 mx-0">
+                            
+                                    <!-- data element -->
+                                    <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                                        <mat-label>Data Element</mat-label>
+                                        <input
+                                            type="number"
+                                            max="99"
+                                            matInput
+                                            [placeholder]="''"
+                                            formControlName="position_iso">
+                                    </mat-form-field>
+                            
+                                    <!-- size-->
+                                    <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                                        <mat-label>Size</mat-label>
+                                        <input
+                                            max="99"
+                                            type="number"
+                                            matInput
+                                            [placeholder]="''"
+                                            formControlName="size">
+                                    </mat-form-field>
+
+                                    <!-- variable data -->
+                                    <mat-form-field class="w-full" [subscriptSizing]="'dynamic'" *ngIf="typeOptionsData && typeOptionsData.length > 0">
+                                        <mat-label>Variable Data</mat-label>
+                                        <mat-select [formControlName]="'select_type_data'">
+                                            <mat-option *ngFor="let opcao of typeOptionsData" [value]="opcao">{{ opcao.name }}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+ 
+                                    <mat-form-field
+                                        class="w-full"
+                                        [subscriptSizing]="'dynamic'" >
+                                        <mat-label>Variable Data</mat-label>
+                                        <mat-icon
+                                            class="icon-size-5"
+                                            [svgIcon]="'heroicons_solid:chip'"
+                                            matPrefix></mat-icon>
+                                        <mat-select [formControlName]="'select_enum_variable_data'" >
+                                            <mat-option *ngFor="let opcao of enum_variable_data" [value]="opcao">{{ opcao.name }}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field> 
+
+                                </div>
+                                 
+                                <!-- button save -->
+                                <div class="flex flex-col mt-1 px-1 pt-12  overflow-hidden">
+
+                                        <div class="  flex flex-col flex-auto p-10 ">
+                                            <button
+                                                class="w-full mt-4 lg:mt-auto"
+                                                mat-flat-button
+                                                [color]="'primary'"
+                                                (click)="save()">
+                                                save
+                                            </button>
+                                        </div> 
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+ 
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+         

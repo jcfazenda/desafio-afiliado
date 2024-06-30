@@ -1,0 +1,16 @@
+.fixed-footer-pixel {
+    background-color: #fefeff;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%; /* Garante que o rodapé ocupe toda a largura */
+}
+
+.fixed-footer-pixel .flex-auto {
+    display: flex;
+    flex-direction: column; 
+}

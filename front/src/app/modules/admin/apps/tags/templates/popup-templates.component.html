@@ -1,0 +1,174 @@
+
+    <!-- Main -->
+    <form [formGroup]="formGroup" *ngIf="dataElements.length > 0">
+
+        <div class="flex-auto -mt-px pt-4 sm:pt-6">
+
+            <div class="flex flex-wrap w-full max-w-screen-xl mx-auto p-6 md:p-3">
+
+                <!-- Title and action buttons -->
+                <div class="flex items-center justify-between w-full">
+                    <div>
+                        <h2 class="text-3xl font-semibold tracking-tight leading-8">{{ template.name}}</h2>
+                        <div class="font-medium tracking-tight text-secondary">{{ template.description}}</div>
+                    </div>
+                    <div class="flex items-center ml-6">
+
+                        <button
+                            class="hidden sm:inline-flex ml-3"
+                            mat-stroked-button>
+                            <mat-icon
+                                class="icon-size-5"
+                                [svgIcon]="'heroicons_solid:cog'"></mat-icon>
+                            <span class="ml-2">Settings</span>
+                        </button>
+                        <button
+                            class="hidden sm:inline-flex ml-3"
+                            mat-flat-button
+                            [color]="'primary'"
+                            (click)="save()">
+                            <mat-icon
+                                class="icon-size-5"
+                                [svgIcon]="'heroicons_solid:save'"></mat-icon>
+                            <span class="ml-2">save</span>
+                        </button>
+
+                        <!-- Actions menu (visible on xs) -->
+                        <div class="sm:hidden">
+                            <button
+                                [matMenuTriggerFor]="actionsMenu"
+                                mat-icon-button>
+                                <mat-icon [svgIcon]="'heroicons_outline:dots-vertical'"></mat-icon>
+                            </button>
+                            <mat-menu #actionsMenu="matMenu">
+                                <button mat-menu-item>Export</button>
+                                <button mat-menu-item>Reports</button>
+                                <button mat-menu-item>Settings</button>
+                            </mat-menu>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- name and description -->
+            <div class="flex flex-col mt- px-1 pt-2  ">
+
+                <div class="row p-2">
+
+                     <!-- data elements -->
+                    <div class="col-md-5"> 
+                        <mat-form-field class="w-full" [subscriptSizing]="'dynamic'" *ngIf="dataElements && dataElements.length > 0">
+                            <mat-label>Data Elements</mat-label>
+                            <mat-select [formControlName]="'select_data_element'" (selectionChange)="getConditionalByPath()">
+                                <mat-option *ngFor="let opcao of dataElements" [value]="opcao">{{ opcao.path_in | uppercase }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- name --> 
+                    <div class="col-md-5"> 
+                        <mat-label>Name</mat-label>
+                        <mat-form-field class="w-full" [subscriptSizing]="'dynamic'" *ngIf="dataElements && dataElements.length > 0">
+                            <input
+                                matInput
+                                [placeholder]="'name'"
+                                formControlName="name">
+                            <mat-icon
+                                class="icon-size-5"
+                                matPrefix
+                                [svgIcon]="'heroicons_solid:pencil'"></mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+                <div class="row p-4">
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                </div>
+
+                <div>
+                    
+                    <div class="row p-2" *ngFor="let item of conditional.switchsimple;  let i = index; let last = last">
+
+                        <div class="col-md-4">
+                            <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                                <mat-label>CASE</mat-label>
+                                <mat-select [formControlName]="'select_data_element_switch' + i" (selectionChange)="updateCase(i)">
+                                    <mat-option *ngFor="let opcao of dataElements" [value]="opcao">
+                                        {{ opcao.path_in | uppercase }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-1">
+                            <mat-form-field class="" [subscriptSizing]="'dynamic'">
+                                <mat-label> </mat-label>
+                                <mat-select [formControlName]="'select_data_signals_switch' + i" (selectionChange)="updateCase(i)">
+                                    <mat-option *ngFor="let opcao of dataSignals" [value]="opcao">{{ opcao.name }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                                <mat-label> </mat-label>
+                                <mat-select [formControlName]="'select_data_compare_switch' + i" (selectionChange)="updateCase(i)">
+                                    <mat-option *ngFor="let opcao of dataCompare" [value]="opcao">{{ opcao.name }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-1">
+                            <mat-form-field class="" [subscriptSizing]="'dynamic'">
+                                <mat-label> THEN POSITION</mat-label>
+                                <input type="number" max="99" matInput [placeholder]="''" [formControlName]="'select_data_position_switch' + i" (blur)="updateCase(i)">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-1">
+                            <mat-form-field class="" [subscriptSizing]="'dynamic'">
+                                <mat-label> RESULT</mat-label>
+                                <input type="number" max="99" matInput [placeholder]="''" [formControlName]="'select_data_value_switch' + i" (blur)="updateCase(i)">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-1 col-align"> 
+ 
+                            <p></p> <p></p>
+                            <mat-icon class="icon-size-8 col-align text-on-warn-400" 
+                                      svgIcon="heroicons_outline:minus-circle" (click)="removeCase(i)"></mat-icon> 
+
+                        </div> 
+
+                    </div> 
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-12 p-8"> </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-1">
+                        <button
+                           (click)="insertCase()"
+                            class="hidden sm:inline-flex ml-3"
+                            mat-stroked-button>
+                            <mat-icon 
+                                class="icon-size-5"
+                                svgIcon="heroicons_outline:plus-circle"></mat-icon>
+                            <span class="ml-2">add case</span>
+                        </button>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+ 
+
+    </form>
+         
