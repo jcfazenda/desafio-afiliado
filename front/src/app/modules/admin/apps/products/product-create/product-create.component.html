@@ -1,704 +1,841 @@
+<mat-drawer-container class="my-container">
 
- 
-    <mat-drawer-container class="my-container"> 
+    <!-- drawer principal -->
+    <mat-drawer-content>
 
-            <!-- drawer principal -->
-            <mat-drawer-content>
+        <div class="flex min-w-0 flex-auto flex-col">
 
-                <div class="flex min-w-0 flex-auto flex-col">
+            <!-- Header -->
+            <div class="bg-card flex flex-col shadow">
 
-                    <!-- Header -->
-                    <div class="bg-card flex flex-col shadow">
+                <div>
+                    <img class="h-40 object-cover lg:h-80" src="assets/images/pages/profile/cover.jpg"
+                        alt="Cover image" />
+                </div>
 
-                        <div>
-                            <img class="h-40 object-cover lg:h-80" src="assets/images/pages/profile/cover.jpg"
-                                alt="Cover image" />
-                        </div>
+                <!-- User info -->
+                <div
+                    class="bg-card mx-auto flex w-full max-w-5xl flex-0 flex-col items-center px-8 lg:h-18 lg:flex-row">
 
-                        <!-- User info -->
-                        <div
-                            class="bg-card mx-auto flex w-full max-w-5xl flex-0 flex-col items-center px-8 lg:h-18 lg:flex-row">
-
-                            <!-- Avatar -->
-                            <div class="-mt-26 rounded-full lg:-mt-22">
-                                <img class="ring-bg-card h-32 w-32 rounded-full ring-4" src="assets/images/avatars/julio.jpeg"
-                                    alt="User avatar" />
-                            </div>
-
-                            <!-- Details -->
-                            <div class="mt-4 flex flex-col items-center lg:ml-8 lg:mt-0 lg:items-start">
-                                <div class="text-lg font-bold leading-none">Julio Fazenda</div>
-                                <div class="text-secondary">Rio de Janeiro, RJ</div>
-                            </div>
-
-                            <!-- Separator -->
-                            <div class="mx-8 hidden h-8 border-l-2 lg:flex"></div>
-
-                            <!-- Stats -->
-                            <div class="mt-6 flex items-center space-x-6 lg:mt-0">
-
-                                <div class="flex flex-col items-center">
-                                    <span class="font-bold">1.2k</span>
-                                    <span class="text-secondary text-sm font-medium">SEGUIDORES</span>
-                                </div>
-                                <div class="flex flex-col items-center">
-                                    <span class="font-bold">200</span>
-                                    <span class="text-secondary text-sm font-medium">SEGUINDO</span>
-                                </div>
-
-                            </div>
-
-                            <!-- Menu -->
-                            <div class="mb-4 mt-8 flex items-center space-x-6 lg:m-0 lg:ml-auto">
-                                <a class="font-medium" [routerLink]="['./']"> Home </a>
-                                <a class="text-secondary" [routerLink]="['./']"> Sobre </a>
-                                <a class="text-secondary" [routerLink]="['./']"> Seguidores </a>
-                                <a class="text-secondary"> Galeria </a>
-                            </div>
-                        </div>
+                    <!-- Avatar -->
+                    <div class="-mt-26 rounded-full lg:-mt-22">
+                        <img class="ring-bg-card h-32 w-32 rounded-full ring-4" src="assets/images/avatars/julio.jpeg"
+                            alt="User avatar" />
                     </div>
 
-                    <div class="flex-auto p-1 sm:p-6">
+                    <!-- Details -->
+                    <div class="mt-4 flex flex-col items-center lg:ml-8 lg:mt-0 lg:items-start">
+                        <div class="text-lg font-bold leading-none">Julio Fazenda</div>
+                        <div class="text-secondary">Rio de Janeiro, RJ</div>
+                    </div>
 
-                        <!-- video ou thumbnail -->
-                        <div class="flex flex-col items-start justify-between sm:flex-row">
+                    <!-- Separator -->
+                    <div class="mx-8 hidden h-8 border-l-2 lg:flex"></div>
 
-                            <mat-card class="custom-card w-full" appearance="outlined">
+                    <!-- Stats -->
+                    <div class="mt-6 flex items-center space-x-6 lg:mt-0">
 
-                                <div class="flex flex-col justify-start text-left">
-                                    <div class="example-button-row">
-                                        <button mat-button (click)="configurateCard('card', card)">Configurar</button> 
-                                    </div>
+                        <div class="flex flex-col items-center">
+                            <span class="font-bold">1.2k</span>
+                            <span class="text-secondary text-sm font-medium">SEGUIDORES</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <span class="font-bold">200</span>
+                            <span class="text-secondary text-sm font-medium">SEGUINDO</span>
+                        </div>
+
+                    </div>
+
+                    <!-- Menu -->
+                    <div class="mb-4 mt-8 flex items-center space-x-6 lg:m-0 lg:ml-auto">
+                        <a class="font-medium" [routerLink]="['./']"> Home </a>
+                        <a class="text-secondary" [routerLink]="['./']"> Sobre </a>
+                        <a class="text-secondary" [routerLink]="['./']"> Seguidores </a>
+                        <a class="text-secondary"> Galeria </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Principal : video ou thumbnail -->
+            <div class="flex-auto p-1 sm:p-6">
+
+                <!-- video ou thumbnail & Formas de Pagamento-->
+                <div class="flex flex-col items-start justify-between sm:flex-row">
+
+                    <mat-card class="custom-card w-full" appearance="outlined">
+
+                        <div class="flex flex-col justify-start text-left">
+                            <div class="example-button-row">
+                                <button mat-button (click)="configurateCard('card', card)">Configurar</button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col md:flex-row w-full">
+
+                            <div class="m-1 flex w-full max-w-3xl flex-wrap items-left justify-left">
+
+                                <div class="video-container" *ngIf="card.isVideo == false">
+                                    <label>
+                                        <img mat-card-image [src]="card.thumbnail" alt="Thumbnail"
+                                            style="width: 100%; height: auto;">
+                                    </label>
                                 </div>
-                                
-                                <div class="flex flex-col md:flex-row w-full">
 
-                                    <div class="m-1 flex w-full max-w-3xl flex-wrap items-left justify-left">  
- 
-                                            <div class="video-container" *ngIf="card.isVideo == false">  
-                                                <label>
-                                                    <input type="file" style="display: none" (change)="onFileSelected($event, 0, 'card', false)">  
-                                                    <img mat-card-image [src]="card.thumbnail" alt="Thumbnail" (click)="fileInputs[0].click()" style="width: 100%; height: auto;">
-                                                </label>  
+                                <div class="video-container" *ngIf="card.isVideo == true">
+
+                                    <iframe [src]="safeURL" title="YouTube video player" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen>
+                                    </iframe>
+
+                                </div>
+
+                            </div>
+
+                            <!-- title and stars -->
+                            <div class="m-1 mb-4 flex flex-auto flex-col md:ml-4">
+                                <div class="text-0xl font-semibold leading-tight">
+                                    {{card.title}}
+                                </div>
+                                <div class="mb-4 flex items-center leading-none">
+                                    <div class="text-secondary">{{card.subtitle}}</div>
+                                </div>
+                                <div class="-ml-1 mt-1 flex items-center leading-none">
+                                    <div class="flex items-center">
+                                        <mat-icon class="text-gray-500 icon-size-5"
+                                            [svgIcon]="'mat_outline:star'"></mat-icon>
+                                        <mat-icon class="text-gray-500 icon-size-5"
+                                            [svgIcon]="'mat_outline:star'"></mat-icon>
+                                        <mat-icon class="text-gray-500 icon-size-5"
+                                            [svgIcon]="'mat_outline:star'"></mat-icon>
+                                        <mat-icon class="text-gray-500 icon-size-5"
+                                            [svgIcon]="'mat_outline:star'"></mat-icon>
+                                        <mat-icon class="text-gray-500 icon-size-5"
+                                            [svgIcon]="'mat_outline:star_half'"></mat-icon>
+                                    </div>
+                                    <div class="text-secondary ml-2">0.0</div>
+                                    <div class="text-secondary mx-2">&bull;</div>
+                                    <div class="text-secondary">00 comentários</div>
+
+                                </div>
+
+                            </div>
+
+                            <!-- price -->
+                            <div class="flex flex-col justify-end ml-auto text-right">
+                                <div class="text-xl font-bold">R$ {{ card.price }}</div>
+                                <div class="text-sm text-gray-500">
+                                    {{ card.price_installment }}
+                                    <button mat-button (click)="openDrawer(3)">mais</button>
+                                </div>
+                                <button mat-button class="mt-2 bg-blue-500 text-white px-4 py-2 rounded"
+                                    (click)="openDrawer(3)">
+                                    COMPRAR
+                                </button>
+                            </div>
+
+
+                        </div>
+
+                    </mat-card>
+
+                </div>
+
+                <!-- Linha de Divisão -->
+                <div class="w-full mt-1 p-1">
+                    <mat-divider class="my-2"></mat-divider>
+                </div>
+
+                <!-- Conteudo dos descriptions -->
+                <div class="flex-auto p-2 sm:p-6">
+                    <div class="col-span-1 p-1 mt-1" *ngFor="let item of card.descriptions">
+                        {{item.text}}
+                    </div>
+                </div>
+
+                <!-- Linha de Divisão -->
+                <div class="w-full mt-1 p-1">
+                    <mat-divider class="my-2"></mat-divider>
+                </div>
+
+                <!-- thumbs -->
+                <div class="p-1">
+
+                    <div class="w-full mt-1 p-1"></div>
+
+                    <div class="grid w-full min-w-0 grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+
+                        <!-- Card 1 -->
+                        <div class="col-span-1" *ngFor="let thumb of card.thumbs; let i = index">
+
+                            <mat-card class="custom-card" appearance="outlined">
+
+                                <label>
+                                    <img mat-card-image [src]="thumb.thumbnail" alt="Thumbnail"
+                                        style="width: 100%; height: auto;" (click)="configurateCard('thumbs', thumb)">
+                                </label>
+
+                                <div class="min-w-0 flex-1">
+                                    <div class="flex min-w-3 flex-auto items-center">
+                                        <div class="mt-2">
+                                            <div class="ml-2 flex min-w-0 flex-col">
+                                                <div class="text-0xl font-semibold leading-tight">
+                                                    {{ thumb.title }}
+                                                </div>
+
                                             </div>
-
-                                            <div class="video-container" *ngIf="card.isVideo == true">
-                                                 
-                                                <iframe [src]="safeURL" title="YouTube video player"
-                                                    frameborder="0"
-                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                    allowfullscreen>
-                                                </iframe>
-
-                                            </div> 
-
-                                    </div>
-
-                                     <!-- title and stars -->
-                                    <div class="m-1 mb-4 flex flex-auto flex-col md:ml-4">
-                                        <div class="text-0xl font-semibold leading-tight">
-                                            {{card.title}}
                                         </div>
-                                        <div class="mb-4 flex items-center leading-none">
-                                            <div class="text-secondary">{{card.subtitle}}</div> 
-                                        </div>
-                                        <div class="-ml-1 mt-1 flex items-center leading-none">
-                                            <div class="flex items-center">
-                                                <mat-icon class="text-gray-500 icon-size-5" [svgIcon]="'mat_outline:star'"></mat-icon>
-                                                <mat-icon class="text-gray-500 icon-size-5" [svgIcon]="'mat_outline:star'"></mat-icon>
-                                                <mat-icon class="text-gray-500 icon-size-5" [svgIcon]="'mat_outline:star'"></mat-icon>
-                                                <mat-icon class="text-gray-500 icon-size-5" [svgIcon]="'mat_outline:star'"></mat-icon>
-                                                <mat-icon class="text-gray-500 icon-size-5" [svgIcon]="'mat_outline:star_half'"></mat-icon>
-                                            </div>
-                                            <div class="text-secondary ml-2">0.0</div>
-                                            <div class="text-secondary mx-2">&bull;</div>
-                                            <div class="text-secondary">00 comentários</div> 
-
-                                        </div>
-
                                     </div>
-
-                                    <!-- price -->
-                                    <div class="flex flex-col justify-end ml-auto text-right">
-                                        <div class="text-xl font-bold">R$ {{ card.prices[0].price }}</div>
-                                        <div class="text-sm text-gray-500">{{ card.prices[0].price_installment }}</div>
-                                        <button mat-button class="mt-2 bg-blue-500 text-white px-4 py-2 rounded"
-                                            (click)="navigateToLink('a123')">COMPRAR</button>
-                                    </div>
-
                                 </div>
 
                             </mat-card>
-
                         </div>
 
-                        <!-- Linha de Divisão -->
-                        <div class="w-full mt-1 p-1">
-                            <mat-divider class="my-2"></mat-divider>
-                        </div>
+                    </div>
+                </div>
 
-                        <!-- Conteudo dos descriptions -->
-                        <div class="flex-auto p-2 sm:p-6">
-                            <div class="col-span-1 p-1 mt-1" *ngFor="let item of card.descriptions">
-                                {{item.text}}
-                            </div>
-                        </div>
+                <!-- Conteudo dos descriptions_two -->
+                <div class="flex-auto p-2 sm:p-6">
+                    <div class="col-span-1 p-1 mt-1" *ngFor="let description of card.descriptions_two">
+                        {{description.text}}
+                    </div>
+                </div>
 
-                        <!-- Linha de Divisão -->
-                        <div class="w-full mt-1 p-1">
-                            <mat-divider class="my-2"></mat-divider>
-                        </div>
+                <div class="w-full mt-4 p-1"></div>
 
-                        <!-- tuhumbs --> 
-                        <div class="p-1"> 
+                <!-- TAB -->
+                <div class="col-span-1">
 
-                            <div class="grid w-full min-w-0 grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                                <div class="flex flex-col justify-start text-left">
-                                    <div class="example-button-row">
-                                        <button mat-button (click)="configurateCard('thumbs', card)">Configurar</button> 
+                    <mat-tab-group [animationDuration]="'0ms'">
+
+                        <mat-tab label="About">
+
+                            <!-- quality -->
+                            <div
+                                class="mt-6 grid w-full grid-cols-1 gap-x-3 gap-y-5 sm:mt-7 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+
+                                <div *ngFor="let detail of card.product_detail  ">
+
+                                    <div class="flex items-center">
+                                        <mat-icon svgIcon="{{detail.icon}}"></mat-icon>
+                                        <div class="ml-1 truncate text-0xl font-semibold leading-tight">
+                                            {{detail.title}}</div>
                                     </div>
+                                    <div class="text-secondary mt-2 leading-6">
+                                        {{detail.description}}
+                                    </div>
+
                                 </div>
-                            </div> 
-
-                            <div class="w-full mt-1 p-1"></div>
-
-                            <div class="grid w-full min-w-0 grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-
-                                <!-- Card 1 --> 
-                                <div class="col-span-1" *ngFor="let thumb of card.thumbs; let i = index"> 
-
-                                    <mat-card class="custom-card" appearance="outlined">
-                                        <label>
-                                            <input type="file" style="display: none" (change)="onFileSelected($event, i, 'thumbs', false)">
-                                            <img mat-card-image [src]="thumb.thumbnail" alt="Thumbnail" (click)="fileInputs[i].click()" style="width: 100%; height: auto;">
-                                        </label>
-
-                                        <div class="min-w-0 flex-1">
-                                            <div class="flex min-w-3 flex-auto items-center">
-                                                <div class="mt-2">
-                                                    <div class="ml-2 flex min-w-0 flex-col">
-                                                        <div class="text-0xl font-semibold leading-tight">
-                                                            {{ thumb.title }}
-                                                        </div>
-                                                        <!-- Outros elementos do card aqui -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </mat-card>
-                                </div> 
 
                             </div>
-                        </div>
 
-                        <!-- Conteudo dos descriptions_two -->
-                        <div class="flex-auto p-2 sm:p-6">
-                            <div class="col-span-1 p-1 mt-1" *ngFor="let description of card.descriptions_two">
-                                {{description.text}}
-                            </div>
-                        </div>
+                        </mat-tab>
 
-                        <div class="w-full mt-4 p-1"></div>
+                        <mat-tab label="Details">
 
-                        <!-- TAB -->
-                        <div class="col-span-1">
+                            <!-- quality -->
+                            <div
+                                class="mt-6 grid w-full grid-cols-1 gap-x-3 gap-y-5 sm:mt-7 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+                                <div *ngFor="let content of card.contents">
 
-                            <mat-tab-group [animationDuration]="'0ms'">
-
-                                <mat-tab label="About">
-
-                                    <!-- quality -->
-                                    <div
-                                        class="mt-6 grid w-full grid-cols-1 gap-x-3 gap-y-5 sm:mt-7 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
-
-                                        <div *ngFor="let detail of card.product_detail  ">
-
-                                            <div class="flex items-center">
-                                                <mat-icon svgIcon="{{detail.icon}}"></mat-icon>
-                                                <div class="ml-1 truncate text-0xl font-semibold leading-tight">
-                                                    {{detail.title}}</div>
+                                    <div class="mt-1 border-l-2">
+                                        <div class="ml-2 flex min-w-0 flex-col">
+                                            <div class="truncate text-0xl font-semibold leading-tight">
+                                                {{content.title.length > 60 ? (content.title | slice:0:60) + '...' :
+                                                content.title}}
                                             </div>
-                                            <div class="text-secondary mt-2 leading-6">
-                                                {{detail.description}}
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                </mat-tab>
-
-                                <mat-tab label="Details">
-
-                                    <!-- quality -->
-                                    <div
-                                        class="mt-6 grid w-full grid-cols-1 gap-x-3 gap-y-5 sm:mt-7 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
-                                        <div *ngFor="let content of card.contents">
-
-                                            <div class="mt-1 border-l-2">
-                                                <div class="ml-2 flex min-w-0 flex-col">
-                                                    <div class="truncate text-0xl font-semibold leading-tight">
-                                                        {{content.title.length > 60 ? (content.title | slice:0:60) + '...' :
-                                                        content.title}}
-                                                    </div>
-                                                    <div class="flex items-center mt-0">
-                                                        <div class="text-secondary ml-1.5 truncate leading-6">
-                                                            {{content.description.length > 60 ? (content.description |
-                                                            slice:0:60) +
-                                                            '...' : content.description}}
-                                                        </div>
-                                                    </div>
-                                                    <div class="ml-2">
-                                                        <ul class="list-disc ml-4">
-                                                            <li *ngFor="let detail of content.details"> {{detail.length > 60
-                                                                ? (detail |
-                                                                slice:0:60) + '...' : detail}} </li>
-                                                        </ul>
-                                                    </div>
+                                            <div class="flex items-center mt-0">
+                                                <div class="text-secondary ml-1.5 truncate leading-6">
+                                                    {{content.description.length > 60 ? (content.description |
+                                                    slice:0:60) +
+                                                    '...' : content.description}}
                                                 </div>
                                             </div>
-
+                                            <div class="ml-2">
+                                                <ul class="list-disc ml-4">
+                                                    <li *ngFor="let detail of content.details"> {{detail.length > 60
+                                                        ? (detail |
+                                                        slice:0:60) + '...' : detail}} </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
 
-                                </mat-tab>
+                                </div>
+                            </div>
 
-                                <mat-tab label="thumbs & Videos">
+                        </mat-tab>
+
+                        <mat-tab label="thumbs & Videos">
+
+                            <!-- thumbs & videos -->
+                            <div class="p-5">
+                                <div
+                                    class="grid w-full min-w-0 grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
 
                                     <!-- thumbs & videos -->
-                                    <div class="p-5">
-                                        <div
-                                            class="grid w-full min-w-0 grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                                    <div class="col-span-1" *ngFor="let thumb of card.thumbs_video">
 
-                                            <!-- thumbs & videos -->
-                                            <div class="col-span-1" *ngFor="let thumb of card.thumbs_video">
-                                                <mat-card class="custom-card" appearance="outlined"> 
+                                        <mat-card class="custom-card" appearance="outlined">
 
-                                                    <!-- image or videos -->
-                                                    <img mat-card-image src="{{thumb.thumbnail}}" alt="Photo of a Shiba Inu"
-                                                        *ngIf="thumb.thumbnail == 'assets/images/produtos/no-thumbnail-video.jpg'">
+                                            <!-- image or videos --> 
+                                            <div class="video-container"  *ngIf="thumb.isVideo === true">
 
-                                                    <div class="video-container"
-                                                        *ngIf="thumb.thumbnail != 'assets/images/produtos/no-thumbnail-video.jpg'">
-                                                        <iframe [src]="safeUrlThumbVideos"
-                                                            title="YouTube video player" frameborder="0"
-                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                            allowfullscreen>
-                                                        </iframe>
-                                                    </div>
+                                                <iframe [src]="safeURL" 
+                                                        title="YouTube video player" 
+                                                        frameborder="0" 
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                        allowfullscreen *ngIf="thumb.link_video != 'assets/images/produtos/no-thumbnail-video.jpg' ">
+                                                </iframe> 
+                    
+                                                <div *ngIf="thumb.link_video == 'assets/images/produtos/no-thumbnail-video.jpg' " > 
+                                                    <img mat-card-image 
+                                                            [src]="thumb.thumbnail" 
+                                                            alt="Thumbnail"  
+                                                            style="width: 100%; height: auto;">
+                                                </div>
 
-                                                     <!-- title and label -->
-                                                    <div class="min-w-0 flex-1">
+                                                <img mat-card-image [matMenuTriggerFor]="menu" 
+                                                     src="assets/icons/youtube-01.svg" 
+                                                     alt="Photo of a Shiba Inu"
+                                                     class="icon-badge" style="width: 65px;">
 
-                                                        <div class="flex min-w-3 flex-auto items-center">
+                                                    <mat-menu #menu="matMenu">
+                                                        <button mat-menu-item (click)="configurateCard('thumbs_video', thumb)">
+                                                            <mat-icon svgIcon="video-player" class="icon-size-6 mr-1"></mat-icon>
+                                                            <span>Update video</span>
+                                                        </button>
+                                                        <button mat-menu-item>
+                                                            <mat-icon svgIcon="remove-video" class="icon-size-7 mr-1"></mat-icon>
+                                                            <span>Remover</span>
+                                                        </button>
+                                                    </mat-menu>
+                                            </div> 
 
-                                                            <div class="mt-2">
-                                                                <div class="ml-2 flex min-w-0 flex-col">
+                                            <!-- title and label -->
+                                            <div class="min-w-0 flex-1">
 
-                                                                    <div class="text-0xl font-semibold leading-tight"> 
-                                                                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                                                                            <mat-icon [svgIcon]="thumb.icon" class="icon-size-5 mr-1"></mat-icon>
-                                                                          </button>
-                                                                          <mat-menu #menu="matMenu">
-                                                                            <button mat-menu-item (click)="setTypeVideo('thumbs_video', card.thumbs_video)">
-                                                                                <mat-icon [svgIcon]="youtube-2-logo-svgrepo-com" class="icon-size-5 mr-1"></mat-icon> 
-                                                                              <span>Update Viseo</span>
-                                                                            </button>
-                                                                            <button mat-menu-item disabled>
-                                                                              <mat-icon>voicemail</mat-icon>
-                                                                              <span>Check voice mail</span>
-                                                                            </button>
-                                                                            <button mat-menu-item>
-                                                                              <mat-icon>notifications_off</mat-icon>
-                                                                              <span>Disable alerts</span>
-                                                                            </button>
-                                                                          </mat-menu>
+                                                <div class="flex min-w-3 flex-auto items-center">
 
-                                                                        {{thumb.title}}
-                                                                    </div>
-                                                                    <div class="-ml-1 mt-1 flex items-center leading-none">
-                                                                        <div class="text-secondary">
-                                                                            {{thumb.description.length > 35 ? (thumb.description
-                                                                            | slice:0:35) + '...' : thumb.description}} </div>
-                                                                    </div>
-                                                                </div>
+                                                    <div class="mt-2">
+                                                        <div class=" flex min-w-0 flex-col">
+
+                                                            <div class="d-flex align-items-center">
+                                                                <span class="ml-1 mt-3">{{ thumb.title }}</span>
                                                             </div>
 
+                                                            <div class="ml-1 mt-1 flex items-center leading-none">
+                                                                <div class="text-secondary">
+                                                                    {{thumb.subtitle.length > 35 ? (thumb.subtitle
+                                                                    | slice:0:35) + '...' : thumb.subtitle}} </div>
+                                                            </div>
                                                         </div>
-
                                                     </div>
 
-                                                </mat-card>
+                                                </div>
+
                                             </div>
-                                        
+
+                                        </mat-card>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </mat-tab>
+
+                    </mat-tab-group>
+
+                </div>
+
+                <!-- Linha de Divisão -->
+                <div class="w-full mt-4 p-8"> </div>
+
+            </div>
+
+            <!-- Footer -->
+            <footer class="fixed-footer bg-light-gray">
+                <div class=" mx-auto">
+                    <div class="flex justify-between items-center space-x-4">
+
+                        <!-- Logo -->
+                        <div class="flex items-center">
+                            <img class="mt-3" mat-card-image src="{{card.godfather}}" alt="Logo"
+                                style="width: 100px; height: auto;">
+                        </div>
+
+                        <!-- Separador -->
+                        <div class="separator"></div>
+
+                        <!-- Preço e Modo de Pagamento -->
+                        <div class="flex flex-col flex-1">
+                            <div class="text-4xl font-semibold leading-tight text-black">
+                                {{ card.price }}
+                            </div>
+                            <div class="text-sm text-gray-500">
+                                {{ card.price_installment }}
+                            </div>
+                        </div>
+
+                        <!-- Botão de Comprar -->
+                        <div>
+                            <button mat-button class="ml-4 mt-2 bg-blue-500 text-white px-4 py-2 rounded"
+                                (click)="navigateToLink('123')">GARANTIR CURSO</button>
+                        </div>
+
+                    </div>
+                </div>
+            </footer>
+
+            <!-- Botão Redondo Flutuante -->
+            <button mat-fab class="floating-button" (click)="openDrawer(1)" href="#top">
+                <img src="assets/icons/settings.svg" alt="Settings icon"
+                    style="width: 23px; height: 23px; filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(180deg) brightness(200%) contrast(100%);" />
+            </button>
+
+        </div>
+
+    </mat-drawer-content>
+
+    <mat-drawer #drawer class="my-drawer" mode="over" position="{{positionDrawer}}" autosize>
+
+        <div class="drawer-content">
+
+            <a href="#top" id="top-anchor"></a>
+
+            <div class="drawer-header">
+                <button (click)="closeDrawer()" class="close-button">
+                    <mat-icon svgIcon="mat_outline:close"></mat-icon>
+                </button>
+            </div>
+
+            <!-- Title -->
+            <div class="w-full mt-1 p-1"> </div>
+
+            <div class="mt-4 flex flex-col items-center lg:ml-2 lg:mt-0 lg:items-start">
+                <div class="text-lg font-bold leading-none">{{card.title_drawer.title_top.length > 35 ?
+                    (card.title_drawer.title_top | slice:0:35) + '' : card.title_drawer.title_top}} </div>
+                <div class="text-secondary">{{card.title_drawer.subtitle_top.length > 35 ?
+                    (card.title_drawer.subtitle_top | slice:0:35) + '...' : card.title_drawer.subtitle_top}} </div>
+            </div>
+
+
+            <div class="flex-auto sm:p-2">
+
+                <!-- Card 1 -->
+                <div class="grid w-full min-w-0 grid-cols-1 gap-8 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+
+                    <div class="col-span-1" *ngFor="let thumb of card.thumbs_drawer_top">
+                        <mat-card class="custom-card" appearance="outlined">
+
+                            <img mat-card-image src="{{thumb.thumbnail}}" alt="Photo of a Shiba Inu">
+
+                            <div class="min-w-0 flex-1">
+
+                                <div class="flex min-w-3 flex-auto items-center">
+
+                                    <div class="mt-2">
+                                        <div class="ml-2 flex min-w-0 flex-col">
+
+                                            <div class="text-0xl font-semibold leading-tight">
+                                                {{thumb.title}}
+                                            </div>
+                                            <div class="-ml-1 mt-1 flex items-center leading-none">
+                                                <div class="flex items-center">
+                                                    <mat-icon class="text-gray-500 icon-size-5"
+                                                        [svgIcon]="'mat_outline:star'"></mat-icon>
+                                                    <mat-icon class="text-gray-500 icon-size-5"
+                                                        [svgIcon]="'mat_outline:star'"></mat-icon>
+                                                    <mat-icon class="text-gray-500 icon-size-5"
+                                                        [svgIcon]="'mat_outline:star'"></mat-icon>
+                                                    <mat-icon class="text-gray-500 icon-size-5"
+                                                        [svgIcon]="'mat_outline:star'"></mat-icon>
+                                                    <mat-icon class="text-gray-500 icon-size-5"
+                                                        [svgIcon]="'mat_outline:star_half'"></mat-icon>
+                                                </div>
+                                                <div class="text-secondary ml-2">0.0</div>
+                                                <div class="text-secondary mx-2">&bull;</div>
+                                                <div class="text-secondary">00 comentários</div>
+                                            </div>
                                         </div>
                                     </div>
 
-                                </mat-tab>
-
-                            </mat-tab-group>
-
-                        </div> 
-
-                        <!-- Linha de Divisão -->
-                        <div class="w-full mt-4 p-8"> </div>
-
-                    </div>
-
-                    <!-- Footer -->
-                    <footer class="fixed-footer bg-light-gray">
-                        <div class=" mx-auto">
-                            <div class="flex justify-between items-center space-x-4">
-
-                                <!-- Logo -->
-                                <div class="flex items-center">
-                                    <img class="mt-3" mat-card-image src="{{card.godfather}}" alt="Logo"
-                                        style="width: 100px; height: auto;">
-                                </div>
-
-                                <!-- Separador -->
-                                <div class="separator"></div>
-
-                                <!-- Preço e Modo de Pagamento -->
-                                <div class="flex flex-col flex-1">
-                                    <div class="text-4xl font-semibold leading-tight text-black">
-                                        {{ card.prices[0].price }}
-                                    </div>
-                                    <div class="text-sm text-gray-500">
-                                        {{ card.prices[0].price_installment }}
-                                    </div>
-                                </div>
-
-                                <!-- Botão de Comprar -->
-                                <div>
-                                    <button mat-button class="ml-4 mt-2 bg-blue-500 text-white px-4 py-2 rounded"
-                                        (click)="navigateToLink('123')">GARANTIR CURSO</button>
                                 </div>
 
                             </div>
+
+                        </mat-card>
+                    </div>
+
+                </div>
+
+                <!-- Linha de Divisão -->
+                <div class="w-full mt-1 p-1">
+                    <mat-divider class="my-2"></mat-divider>
+                </div>
+
+                <!-- Conteudo contents -->
+                <div class="col-span-2 p-1">
+                    <ul class="list-none p-2" *ngFor="let content of card.contents">
+                        <li class="">
+                            <div class="flex items-start"> <!-- Alinhamento à esquerda -->
+                                <div class="flex-1">
+                                    <div class="truncate text-xl font-semibold leading-tight mb-1">
+                                        {{content.title}}
+                                    </div>
+                                    <div class="text-secondary text-sm leading-6 mb-2">
+                                        {{content.description.length > 50 ? (content.description | slice:0:50) +
+                                        '...' : content.description}}
+                                    </div>
+                                    <ul class="list-disc ml-4">
+                                        <li *ngFor="let detail of content.details" class="text-sm leading-6">
+                                            {{detail.length > 50 ? (detail | slice:0:50) + '...' : detail}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Linha de Divisão -->
+                <div class="w-full mt-1 p-1">
+                    <mat-divider class="my-2"></mat-divider>
+                </div>
+
+                <!-- Conteudo dos descriptions_two -->
+                <div class="flex-auto p-2 sm:p-1">
+                    <div class="col-span-1 p-1 mt-1" *ngFor="let description of card.descriptions_drawer">
+                        {{description.text}}
+                    </div>
+                </div>
+
+                <!-- Linha de Divisão -->
+                <div class="w-full mt-1 p-1">
+                    <mat-divider class="my-2"></mat-divider>
+                </div>
+
+            </div>
+
+            <div class="flex-auto p-1 sm:p-2">
+
+                <!-- Title Footer -->
+                <div class="mt-2 flex flex-col items-center lg:ml-2 lg:mt-0 lg:items-start">
+                    <div class="text-lg font-bold leading-none">{{card.title_drawer.title_footer.length > 35 ?
+                        (card.title_drawer.title_footer | slice:0:35) + '' : card.title_drawer.title_footer}} </div>
+                    <div class="text-secondary">{{card.title_drawer.subtitle_footer.length > 35 ?
+                        (card.title_drawer.subtitle_footer | slice:0:35) + '...' : card.title_drawer.subtitle_footer}}
+                    </div>
+                </div>
+
+                <div class="w-full mt-1 p-1"></div>
+
+                <!-- Card  thumbs_drawer_footer -->
+                <div class="grid w-full min-w-0 grid-cols-2 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+
+                    <div class="col-span-1" *ngFor="let thumb of card.thumbs_drawer_footer">
+                        <mat-card class="custom-card" appearance="outlined">
+
+                            <img mat-card-image src="{{thumb.thumbnail}}" alt="Photo of a Shiba Inu">
+
+                            <div class="min-w-0 flex-1">
+
+                                <div class="flex min-w-3 flex-auto items-center">
+
+                                    <div class="mt-2">
+                                        <div class="ml-2 flex min-w-0 flex-col">
+
+                                            <div class="text-0x0 font-semibold leading-tight">
+                                                {{thumb.title}}
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </mat-card>
+                    </div>
+
+                </div>
+
+                <!-- Linha de Divisão -->
+                <div class="w-full mt-1">
+                    <mat-divider class="my-1"></mat-divider>
+                </div>
+
+                <!-- Botoes -->
+                <div class="flex-auto  sm:p-0">
+                    <div class="grid w-full min-w-0 grid-cols-2 gap-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+
+                        <!-- Botão Configurar Footer -->
+                        <div class="mt-1 flex justify-between items-center space-x-2">
+
+                            <button class="fuse-mat-button-large mt-10 w-full" mat-flat-button [color]="'accent'">
+                                CONFIGURAR
+                            </button>
+                            <button class="fuse-mat-button-large mt-10 w-full" mat-flat-button [color]="'accent'"
+                                (click)="openDrawer(2)">
+                                PIXEL
+                            </button>
+
                         </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </mat-drawer>
+
+    <!-- Drawer (PIXEL) -->
+    <mat-drawer #drawerPixel class="my-drawer" mode="over" position="{{positionDrawerPixel}}" autosize>
+
+        <div class="drawer-content">
+
+            <div class="drawer-header">
+                <button (click)="closeDrawer()" class="close-button">
+                    <mat-icon svgIcon="mat_outline:close"></mat-icon>
+                </button>
+            </div>
+
+            <div class="flex-auto sm:p-2">
+
+                <!-- video ou thumbnail -->
+                <div class="flex-auto p-1 sm:p-2">
+
+                    <!-- video ou thumbnail & Formas de Pagamento-->
+                    <div class="flex flex-col items-start justify-between sm:flex-row">
+
+                        <mat-card class="custom-card w-full" appearance="outlined">
+
+                            <div class="flex flex-col md:flex-row w-full">
+
+                                <div class="m-1 flex w-full max-w-3xl flex-wrap items-left justify-left">
+
+                                    <div class="video-container" *ngIf="card.isVideo == false">
+                                        <label>
+                                            <input type="file" style="display: none"
+                                                (change)="onFileSelected($event, 0, 'card', false)">
+                                            <img mat-card-image [src]="card.thumbnail" alt="Thumbnail"
+                                                (click)="fileInputs[0].click()" style="width: 100%; height: auto;">
+                                        </label>
+                                    </div>
+
+                                    <div class="video-container" *ngIf="card.isVideo == true">
+
+                                        <iframe [src]="safeURL" title="YouTube video player" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen>
+                                        </iframe>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- title and stars -->
+                                <div class="m-1 mb-4 flex flex-auto flex-col md:ml-4">
+                                    <div class="text-0xl font-semibold leading-tight">
+                                        {{card.title}}
+                                    </div>
+                                    <div class="mb-4 flex items-center leading-none">
+                                        <div class="text-secondary">{{card.subtitle}}</div>
+                                    </div>
+                                    <div class="-ml-1 mt-1 flex items-center leading-none">
+                                        <div class="flex items-center">
+                                            <mat-icon class="text-gray-500 icon-size-5"
+                                                [svgIcon]="'mat_outline:star'"></mat-icon>
+                                            <mat-icon class="text-gray-500 icon-size-5"
+                                                [svgIcon]="'mat_outline:star'"></mat-icon>
+                                            <mat-icon class="text-gray-500 icon-size-5"
+                                                [svgIcon]="'mat_outline:star'"></mat-icon>
+                                            <mat-icon class="text-gray-500 icon-size-5"
+                                                [svgIcon]="'mat_outline:star'"></mat-icon>
+                                            <mat-icon class="text-gray-500 icon-size-5"
+                                                [svgIcon]="'mat_outline:star_half'"></mat-icon>
+                                        </div>
+                                        <div class="text-secondary ml-2">0.0</div>
+                                        <div class="text-secondary mx-2">&bull;</div>
+                                        <div class="text-secondary">00 comentários</div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </mat-card>
+
+                    </div>
+
+                </div>
+
+                <!-- Linha de Divisão -->
+                <div class="w-full mt-1 p-1">
+                    <mat-divider class="my-2"></mat-divider>
+                </div>
+
+                <!-- grid pixels -->
+                <div *ngIf="typeDrawerOpen == 'Pixel'">
+                    <div class="col-span-1" *ngFor="let pixel of card.pixels">
+
+                        <div
+                            class="sm:p-2 mt-2 grid w-full min-w-0 grid-cols-1 gap-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
+
+                            <!-- Columns -->
+                            <div
+                                class="text-secondary col-span-8 text-0xl font-semibold leading-tight flex items-center">
+                                <mat-icon [svgIcon]="pixel.icon" class="icon-size-5 mr-2"></mat-icon>
+                                <span>{{pixel.name}}</span>
+                            </div>
+                            <div class="text-secondary text-right text-md font-medium">Ativo</div>
+
+                            <!-- Item -->
+                            <div class="col-span-8">
+                                <div class="text-secondary mt-1 text-md">{{pixel.pixel_id}} | {{pixel.pixel_label}}
+                                </div>
+                            </div>
+                            <div class="col-span-4 flex justify-end items-center text-md font-medium text-secondary">
+                            </div>
+
+                            <div class="col-span-12 my-1 border-b"></div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- grid payment mode -->
+                <div *ngIf="typeDrawerOpen == 'PaymentMode'">
+
+                    <!-- se nao existir -->
+                    <div class="m-1 mb-4 flex flex-auto flex-col md:ml-4">
+                        <div class="text-0xl font-semibold leading-tight">
+                            Formas de Parcelamento.
+                        </div>
+                    </div>
+
+                    <!-- grid de meios de pagamento -->
+                    <div *ngIf="card.price_installment_mode.length > 0">
+
+                        <div class="m-1 mb-4 flex flex-auto flex-col md:ml-4">
+                            <div class="mb-4 flex items-center leading-none">
+                                <div class="text-secondary">Os dados informados aqui são para seu conhecimento, ao
+                                    clicar em IR PARA PAGAMENTO você terá as opções de escolha.</div>
+                            </div>
+                        </div>
+
+                        <div class="col-span-1" *ngFor="let installment of card.price_installment_mode">
+                            <div
+                                class="m-1 sm:p-1 mt-0 grid w-full min-w-0 grid-cols-1 gap-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
+                                <div
+                                    class="text-secondary col-span-8 text-0xl font-semibold leading-tight flex items-center">
+
+                                    <mat-icon *ngIf="installment.selected == false" svgIcon="credit-card"
+                                        class="icon-size-5 mr-1"></mat-icon>
+                                    <mat-icon *ngIf="installment.selected == true" svgIcon="tangerine-gome"
+                                        class="icon-size-5 mr-1"></mat-icon>
+
+                                    <div class="text-0xl font-semibold leading-tight">
+                                        {{ installment.description }} {{ installment.interestFree }}
+                                    </div>
+
+                                </div>
+                                <div class="text-secondary text-right text-md font-medium">Total: {{ installment.amount
+                                    }}</div>
+                                <div class="col-span-12 my-0 border-b"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Rodapé -->
+                    <footer class="fixed-footer-pixel ">
+
+                        <div
+                            class="sm:p-1 mt-2 grid w-full min-w-0 grid-cols-1 gap-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 fixed-footer-pixel .flex-auto">
+
+                            <div class="mt-4 sm:p-3 flex flex-col">
+                                <div class="flex flex-col justify-end ml-auto text-right"
+                                    *ngIf="typeDrawerOpen == 'PaymentMode'">
+                                    <div class="text-xl font-bold">R$ {{ card.price }}</div>
+                                    <div class="text-sm text-gray-500">
+                                        {{ card.price_installment }}
+                                    </div>
+                                    <button mat-button class="mt-2 bg-blue-500 text-white px-4 py-2 rounded"
+                                        (click)="navigateToLink(card.price_link_payment)">
+                                        IR PARA PAGAMENTO
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="w-full mt-1 p-3"></div>
+
+                        </div>
+
                     </footer>
 
-                    <!-- Botão Redondo Flutuante -->
-                    <button mat-fab class="floating-button" (click)="openDrawer(1)"  href="#top"> 
-                        <img src="assets/icons/settings.svg" alt="Settings icon" 
-                            style="width: 23px; height: 23px; filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(180deg) brightness(200%) contrast(100%);" />
-                    </button>
-
                 </div>
 
-            </mat-drawer-content>
+            </div>
 
-            <!-- drawer mais detalhes -->
-            <mat-drawer #drawer class="my-drawer" mode="over" position="{{positionDrawer}}" autosize>
+            <!-- Rodapé com campos de edição e salvar -->
+            <footer class="fixed-footer-pixel " *ngIf="typeDrawerOpen == 'Pixel'">
 
-                <div class="drawer-content"> 
+                <form [formGroup]="formGroup">
 
-                    <a href="#top" id="top-anchor"></a>
-        
-                    <div class="drawer-header">
-                        <button (click)="closeDrawer()" class="close-button">
-                            <mat-icon svgIcon="mat_outline:close"></mat-icon>
-                        </button>
-                    </div> 
+                    <!-- Campos de edição -->
+                    <div
+                        class="sm:p-2 mt-2 grid w-full min-w-0 grid-cols-1 gap-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 fixed-footer-pixel .flex-auto">
 
-                    <!-- Title -->
-                    <div class="w-full mt-1 p-1"> </div>
+                        <div class="mt-4 sm:p-3 flex flex-col">
 
-                    <div class="mt-4 flex flex-col items-center lg:ml-2 lg:mt-0 lg:items-start">
-                        <div class="text-lg font-bold leading-none">{{card.title_drawer.title_top.length > 35 ? (card.title_drawer.title_top | slice:0:35) + '' : card.title_drawer.title_top}}  </div>
-                        <div class="text-secondary">{{card.title_drawer.subtitle_top.length > 35 ? (card.title_drawer.subtitle_top | slice:0:35) + '...' : card.title_drawer.subtitle_top}}  </div>
-                    </div>
+                            <mat-form-field class="gt-xs:pr-3 flex-auto">
+                                <mat-label>PROVEDOR DE ANÚNCIOS*</mat-label>
+                                <mat-select [formControlName]="'select_provedor_anuncios'"
+                                    [placeholder]="'provedor de anúncio'"
+                                    (selectionChange)="onSelectionProvedor($event)">
+                                    <mat-option *ngFor="let provedor of provedoresAnuncios" [value]="provedor">
+                                        <mat-icon [svgIcon]="provedor.icon"></mat-icon> {{ provedor.name }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-icon class="icon-size-5" matPrefix [svgIcon]="iconSelectProvedor"></mat-icon>
+                            </mat-form-field>
 
-                    <div class="flex-auto sm:p-2"> 
+                            <div class="col-span-12 my-1 p-2"></div>
 
-                        <!-- Card 1 -->
-                        <div class="grid w-full min-w-0 grid-cols-1 gap-8 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4"> 
-                            
-                            <div class="col-span-1" *ngFor="let thumb of card.thumbs_drawer_top">
-                                <mat-card class="custom-card" appearance="outlined">
+                            <mat-form-field class="gt-xs:pr-3 flex-auto">
+                                <mat-label>PIXEL ID</mat-label>
+                                <input matInput [placeholder]="'pixel identificação'" />
+                            </mat-form-field>
 
-                                    <img mat-card-image src="{{thumb.thumbnail}}" alt="Photo of a Shiba Inu">
+                            <mat-form-field class="gt-xs:pr-2 flex-auto">
+                                <input matInput [placeholder]="'Label de Conversão'" />
+                            </mat-form-field>
 
-                                    <div class="min-w-0 flex-1">
-
-                                        <div class="flex min-w-3 flex-auto items-center">
-
-                                            <div class="mt-2">
-                                                <div class="ml-2 flex min-w-0 flex-col">
-
-                                                    <div class="text-0xl font-semibold leading-tight">
-                                                        {{thumb.title}}
-                                                    </div>
-                                                    <div class="-ml-1 mt-1 flex items-center leading-none">
-                                                        <div class="flex items-center">
-                                                            <mat-icon class="text-gray-500 icon-size-5"
-                                                                [svgIcon]="'mat_outline:star'"></mat-icon>
-                                                            <mat-icon class="text-gray-500 icon-size-5"
-                                                                [svgIcon]="'mat_outline:star'"></mat-icon>
-                                                            <mat-icon class="text-gray-500 icon-size-5"
-                                                                [svgIcon]="'mat_outline:star'"></mat-icon>
-                                                            <mat-icon class="text-gray-500 icon-size-5"
-                                                                [svgIcon]="'mat_outline:star'"></mat-icon>
-                                                            <mat-icon class="text-gray-500 icon-size-5"
-                                                                [svgIcon]="'mat_outline:star_half'"></mat-icon>
-                                                        </div>
-                                                        <div class="text-secondary ml-2">0.0</div>
-                                                        <div class="text-secondary mx-2">&bull;</div>
-                                                        <div class="text-secondary">00 comentários</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                </mat-card>
+                            <div class="mt-0 sm:p-1 flex flex-col">
+                                <button class="fuse-mat-button-large mt-10 w-full" mat-flat-button [color]="'accent'">
+                                    SALVAR
+                                </button>
                             </div>
 
                         </div>
 
-                        <!-- Linha de Divisão -->
-                        <div class="w-full mt-1 p-1">
-                            <mat-divider class="my-2"></mat-divider>
-                        </div>
-
-                        <!-- Conteudo contents -->
-                        <div class="col-span-2 p-1">
-                            <ul class="list-none p-2" *ngFor="let content of card.contents">
-                                <li class="">
-                                    <div class="flex items-start"> <!-- Alinhamento à esquerda -->
-                                        <div class="flex-1">
-                                            <div class="truncate text-xl font-semibold leading-tight mb-1">
-                                                {{content.title}}
-                                            </div>
-                                            <div class="text-secondary text-sm leading-6 mb-2">
-                                                {{content.description.length > 50 ? (content.description | slice:0:50) +
-                                                '...' : content.description}}
-                                            </div>
-                                            <ul class="list-disc ml-4">
-                                                <li *ngFor="let detail of content.details" class="text-sm leading-6">
-                                                    {{detail.length > 50 ? (detail | slice:0:50) + '...' : detail}}
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <!-- Linha de Divisão -->
-                        <div class="w-full mt-1 p-1">
-                            <mat-divider class="my-2"></mat-divider>
-                        </div>
-
-                        <!-- Conteudo dos descriptions_two -->
-                        <div class="flex-auto p-2 sm:p-1">
-                            <div class="col-span-1 p-1 mt-1" *ngFor="let description of card.descriptions_drawer">
-                                {{description.text}}
-                            </div>
-                        </div> 
-
-                        <!-- Linha de Divisão -->
-                        <div class="w-full mt-1 p-1">
-                            <mat-divider class="my-2"></mat-divider>
-                        </div>
-
-                    </div>  
-
-                    <div class="flex-auto p-1 sm:p-2">  
-
-                        <!-- Title Footer -->
-                        <div class="mt-2 flex flex-col items-center lg:ml-2 lg:mt-0 lg:items-start">
-                            <div class="text-lg font-bold leading-none">{{card.title_drawer.title_footer.length > 35 ? (card.title_drawer.title_footer | slice:0:35) + '' : card.title_drawer.title_footer}}  </div>
-                            <div class="text-secondary">{{card.title_drawer.subtitle_footer.length > 35 ? (card.title_drawer.subtitle_footer | slice:0:35) + '...' : card.title_drawer.subtitle_footer}}  </div>
-                        </div>
-                        
-                        <div class="w-full mt-1 p-1"></div>
-                        
-                        <!-- Card  thumbs_drawer_footer -->
-                        <div class="grid w-full min-w-0 grid-cols-2 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"> 
-                            
-                            <div class="col-span-1" *ngFor="let thumb of card.thumbs_drawer_footer">
-                                <mat-card class="custom-card" appearance="outlined">
-
-                                    <img mat-card-image src="{{thumb.thumbnail}}" alt="Photo of a Shiba Inu">
-
-                                    <div class="min-w-0 flex-1">
-
-                                        <div class="flex min-w-3 flex-auto items-center">
-
-                                            <div class="mt-2">
-                                                <div class="ml-2 flex min-w-0 flex-col">
-
-                                                    <div class="text-0x0 font-semibold leading-tight">
-                                                        {{thumb.title}}
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                </mat-card>
-                            </div>
-
-                        </div> 
-
-                        <!-- Linha de Divisão -->
-                        <div class="w-full mt-1">
-                            <mat-divider class="my-1"></mat-divider>
-                        </div>
-
-                        <!-- Botoes -->
-                        <div class="flex-auto  sm:p-0">  
-                            <div class="grid w-full min-w-0 grid-cols-2 gap-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4"> 
-
-                                <!-- Botão Configurar Footer -->
-                                <div class="mt-1 flex justify-between items-center space-x-2"> 
-            
-                                    <button class="fuse-mat-button-large mt-10 w-full" mat-flat-button [color]="'accent'">
-                                        CONFIGURAR
-                                    </button>
-                                    <button class="fuse-mat-button-large mt-10 w-full" mat-flat-button [color]="'accent'" (click)="openDrawer(2)">
-                                        PIXEL
-                                    </button> 
-
-                                </div>
-
-                            </div>
-                        </div> 
+                        <div class="w-full mt-1 p-3"></div>
 
                     </div>
 
-                </div>
+                </form>
 
-            </mat-drawer>
+            </footer>
 
-            <!-- Drawer (PIXEL) -->
-            <mat-drawer #drawerPixel class="my-drawer" mode="over" position="{{positionDrawerPixel}}" autosize>
+        </div>
 
-                <div class="drawer-content">
+    </mat-drawer>
 
-                    <div class="drawer-header">
-                        <button (click)="closeDrawer()" class="close-button">
-                            <mat-icon svgIcon="mat_outline:close"></mat-icon>
-                        </button>
-                    </div> 
-
-
-                    <div class="flex-auto sm:p-2">
-
-                        <!-- Card Project PIXEL -->
-                        <div class="col-span-1" *ngFor="let card of card.thumbs_drawer_top">
-
-                            <div class="mt-1 grid w-full min-w-0 grid-cols-1 gap-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
-
-                                <mat-card class="custom-card" appearance="outlined">
-                                    <img mat-card-image src="{{card.thumbnail}}" alt="Photo of a Shiba Inu" class="p-1">
-                                    <div class="min-w-0 flex-1">
-                                        <div class="flex min-w-3 flex-auto items-center">
-                                            <div class="mt-1">
-                                                <div class="ml-1 flex min-w-0 flex-col">
-                                                    <div class="text-0xl font-semibold leading-tight">
-                                                        {{card.title}}
-                                                    </div>
-                                                    <div class="text-secondary ml-1">{{card.description}}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </mat-card>
-
-                            </div>
-
-                        </div>
-
-                        <!-- Linha de Divisão -->
-                        <div class="w-full mt-1 p-3">
-                            <mat-divider class="my-2"></mat-divider>
-                        </div>
-
-                        <!-- grid pixels -->
-                        <div class="col-span-1" *ngFor="let pixel of card.pixels">
-
-                            <div class="sm:p-2 mt-2 grid w-full min-w-0 grid-cols-1 gap-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2">
-
-                                <!-- Columns -->
-                                <div class="text-secondary col-span-8 text-0xl font-semibold leading-tight flex items-center">
-                                    <mat-icon [svgIcon]="pixel.icon" class="icon-size-5 mr-2"></mat-icon>
-                                    <span>{{pixel.name}}</span>
-                                </div>
-                                <div class="text-secondary text-right text-md font-medium">Ativo</div>
-
-                                <!-- Item -->
-                                <div class="col-span-8">
-                                    <div class="text-secondary mt-1 text-md">{{pixel.pixel_id}} | {{pixel.pixel_label}}</div> 
-                                </div>
-                                <div class="col-span-4 flex justify-end items-center text-md font-medium text-secondary"></div>
-
-                                <div class="col-span-12 my-1 border-b"></div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-                    
-                    <!-- Rodapé com campos de edição e salvar -->
-                    <footer class="fixed-footer-pixel ">
-        
-                        <form [formGroup]="formGroup" > 
-
-                            <!-- Campos de edição -->
-                            <div class="sm:p-2 mt-2 grid w-full min-w-0 grid-cols-1 gap-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 fixed-footer-pixel .flex-auto">  
-                                    
-                                <div class="mt-4 sm:p-3 flex flex-col">
-
-                                    <mat-form-field class="gt-xs:pr-3 flex-auto">
-                                        <mat-label>PROVEDOR DE ANÚNCIOS*</mat-label>
-                                        <mat-select [formControlName]="'select_provedor_anuncios'" [placeholder]="'provedor de anúncio'" (selectionChange)="onSelectionProvedor($event)">
-                                            <mat-option *ngFor="let provedor of provedoresAnuncios" [value]="provedor">
-                                                <mat-icon [svgIcon]="provedor.icon"></mat-icon> {{ provedor.name }}
-                                            </mat-option>
-                                        </mat-select>
-                                        <mat-icon class="icon-size-5" matPrefix [svgIcon]="iconSelectProvedor"></mat-icon>
-                                    </mat-form-field>                            
-
-                                    <div class="col-span-12 my-1 p-2"></div>
-
-                                    <mat-form-field class="gt-xs:pr-3 flex-auto">
-                                        <mat-label>PIXEL ID</mat-label>
-                                        <input matInput [placeholder]="'pixel identificação'" />
-                                    </mat-form-field> 
-                                    
-                                    <mat-form-field class="gt-xs:pr-2 flex-auto">
-                                        <input matInput [placeholder]="'Label de Conversão'" />
-                                    </mat-form-field>
-
-                                    <div class="mt-0 sm:p-1 flex flex-col">
-                                        <button class="fuse-mat-button-large mt-10 w-full" mat-flat-button [color]="'accent'">
-                                            SALVAR
-                                        </button>
-                                    </div> 
-
-                                </div> 
-
-                                <div class="w-full mt-1 p-3"></div>
-
-                            </div> 
-                        
-                        </form>
-
-                    </footer> 
-
-                </div>
-
-            </mat-drawer>
-
-        
-    </mat-drawer-container>
-
+</mat-drawer-container>

@@ -23,7 +23,7 @@ import { MatCardModule } from '@angular/material/card';
 import { ProductLandingService } from './modules/auth/api-authenticate/products/product-landing.service';  
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
-import { IconService } from '../assets/icons/icon.service';
+import { IconService } from '../assets/icon.service';
 import {MatMenuModule} from '@angular/material/menu'; 
 
 const routerConfig: ExtraOptions = {

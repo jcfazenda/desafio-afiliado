@@ -13,6 +13,12 @@ export class IconService {
 
   private registerIcons() {
     const icons = [
+      'remove-video',
+      'remove-thubnail',
+      'video-player',
+      'youtube-01', 
+      'credit-card', 
+      'tangerine-gome',
       'google-ads', 
       'facebook-ads', 
       'facebook-f-ads', 

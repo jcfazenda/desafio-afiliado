@@ -161,4 +161,16 @@ html {
     cursor: pointer;
     color: rgb(136, 133, 133);
   } 
- 
+  
+ //
+ .position-relative {
+    position: relative;
+    display: inline-block; /* Garante que o ícone e a imagem fiquem na mesma linha */
+}
+
+.icon-badge {
+    position: absolute; /* Posiciona o ícone absolutamente em relação ao container pai */
+    top: 3%; /* Ajusta a posição verticalmente */
+    left: 84%; /* Ajusta a posição horizontalmente */
+    transform: translate(-50%, -50%); /* Centraliza o ícone no centro do container */
+}
