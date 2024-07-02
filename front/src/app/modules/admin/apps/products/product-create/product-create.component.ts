@@ -1,11 +1,11 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawer } from '@angular/material/sidenav';
 import { ProductDialog } from '../product-dialog/product-dialog.component';
 import { SafeResourceUrl } from '@angular/platform-browser';
-import { UpdateVideoService } from '../../../../services/update-video.service';
-
+import { UpdateVideoService } from '../../../../services/update-video.service'; 
+ 
 @Component({
     selector: 'app-product-create',
     templateUrl: './product-create.component.html',
@@ -67,6 +67,7 @@ export class ProductCreateComponent implements OnInit {
         }
     ];
 
+ 
     card =
         {
             id: '291b3c7d-9031-4ee1-a284-ccf508c2e7be',
@@ -128,10 +129,12 @@ export class ProductCreateComponent implements OnInit {
                 }
             ],
             title_drawer: {
-                title_top: 'Title',
-                subtitle_top: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo',
-                title_footer: 'Title',
-                subtitle_footer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo'
+                title: 'Title Drawer Top',
+                subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo'
+            },
+            title_drawer_footer: {
+                title: 'Title Drawer Thumb Footer',
+                subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo'
             },
             contents: [
                 {
@@ -160,17 +163,19 @@ export class ProductCreateComponent implements OnInit {
                     id: '1',
                     true: true,
                     isVideo: false,
+                    icon: 'tangerine-svgrepo-com',
                     thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                    link_video: 'https://youtu.be/-nKoHRvtsk4?si=OidpN5V1CQOhE8DV',
+                    link_video: 'assets/images/produtos/no-thumbnail.jpg',
                     title: 'Title 01',
                     subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo'
                 },
                 {
                     id: '2',
                     true: true,
-                    isVideo: true,
+                    isVideo: false,
+                    icon: 'tangerine-svgrepo-com',
                     thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                    link_video: 'https://youtu.be/-nKoHRvtsk4?si=OidpN5V1CQOhE8DV',
+                    link_video: 'assets/images/produtos/no-thumbnail.jpg',
                     title: 'Title 02',
                     subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo'
                 },
@@ -178,8 +183,9 @@ export class ProductCreateComponent implements OnInit {
                     id: '3',
                     true: true,
                     isVideo: false,
+                    icon: 'tangerine-svgrepo-com',
                     thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                    link_video: 'https://youtu.be/-nKoHRvtsk4?si=OidpN5V1CQOhE8DV',
+                    link_video: 'assets/images/produtos/no-thumbnail.jpg',
                     title: 'Title 03',
                     subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo'
                 },
@@ -187,8 +193,9 @@ export class ProductCreateComponent implements OnInit {
                     id: '4',
                     true: true,
                     isVideo: false,
+                    icon: 'tangerine-svgrepo-com',
                     thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                    link_video: 'https://youtu.be/-nKoHRvtsk4?si=OidpN5V1CQOhE8DV',
+                    link_video: 'assets/images/produtos/no-thumbnail.jpg',
                     title: 'Title 04',
                     subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo'
                 },
@@ -196,6 +203,7 @@ export class ProductCreateComponent implements OnInit {
                     id: '5',
                     true: true,
                     isVideo: false,
+                    icon: 'tangerine-svgrepo-com',
                     thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
                     title: 'Title 05',
                     subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo'
@@ -203,81 +211,103 @@ export class ProductCreateComponent implements OnInit {
             ],
             thumbs_video: [
                 {
-                    id: '',
+                    id: '1',
                     isVideo: true,
                     icon: 'tangerine-svgrepo-com',
                     thumbnail: 'assets/images/produtos/no-thumbnail-video.jpg',
                     link_video: 'assets/images/produtos/no-thumbnail-video.jpg',
-                    title: 'Title',
+                    title: 'Title 01',
                     subtitle: 'Lorem ipsum dolor sit amet, consectetur a'
                 },
                 {
-                    id: '',
+                    id: '2',
                     isVideo: true,
                     icon: 'tangerine-svgrepo-com',
                     thumbnail: 'assets/images/produtos/no-thumbnail-video.jpg',
                     link_video:'assets/images/produtos/no-thumbnail-video.jpg',
-                    title: 'Title',
+                    safeUrl: null,
+                    title: 'Title 02',
                     subtitle: 'Lorem ipsum dolor sit amet, consectetur a'
                 },
                 {
-                    id: '',
+                    id: '3',
                     isVideo: true,
                     icon: 'tangerine-svgrepo-com',
                     thumbnail: 'assets/images/produtos/no-thumbnail-video.jpg',
                     link_video: 'assets/images/produtos/no-thumbnail-video.jpg',
+                    safeUrl: null,
                     title: 'Title',
                     subtitle: 'Lorem ipsum dolor sit amet, consectetur a'
                 },
                 {
-                    id: '',
+                    id: '4',
                     isVideo: true,
                     icon: 'tangerine-svgrepo-com',
                     thumbnail: 'assets/images/produtos/no-thumbnail-video.jpg',
                     link_video: 'assets/images/produtos/no-thumbnail-video.jpg',
+                    safeUrl: null,
                     title: 'Title',
                     subtitle: 'Lorem ipsum dolor sit amet, consectetur a'
                 },
                 {
-                    id: '',
+                    id: '5',
                     isVideo: true,
                     icon: 'tangerine-svgrepo-com',
                     thumbnail: 'assets/images/produtos/no-thumbnail-video.jpg',
                     link_video: 'assets/images/produtos/no-thumbnail-video.jpg',
-                    title: 'Title',
+                    safeUrl: null,
+                    title: '0000-05',
                     subtitle: 'Lorem ipsum dolor sit amet, consectetur a'
                 }
             ],
             thumbs_drawer_top: [
                 {
-                    id: '',
-                    true: true,
+                    id: '5',
+                    isVideo: false,
+                    icon: 'tangerine-svgrepo-com',
                     thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                    title: 'Title',
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo'
+                    link_video: 'assets/images/produtos/no-thumbnail-video.jpg',
+                    safeUrl: null,
+                    title: '0000-05',
+                    subtitle: 'Lorem ipsum dolor sit amet, consectetur a'
                 }
             ],
             thumbs_drawer_footer: [
                 {
-                    id: '',
+                    id: '1',
                     true: true,
+                    isVideo: false,
                     thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                    title: 'Title',
-                    description: 'Lorem estarter bertore denoire abdictium'
+                    link_video: 'assets/images/produtos/no-thumbnail-video.jpg',
+                    title: 'Title Drawer Footer 03',
+                    subtitle: 'Lorem estarter bertore denoire abdictium'
                 },
                 {
-                    id: '',
+                    id: '2',
                     true: true,
+                    isVideo: false,
                     thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                    title: 'Title',
-                    description: 'Lorem estarter bertore denoire abdictium'
+                    link_video: 'assets/images/produtos/no-thumbnail-video.jpg',
+                    title: 'Title Drawer Footer 03',
+                    subtitle: 'Lorem estarter bertore denoire abdictium'
                 },
                 {
-                    id: '',
+                    id: '3',
                     true: true,
+                    isVideo: false,
                     thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                    title: 'Title',
-                    description: 'Lorem estarter bertore denoire abdictium'
+                    link_video: 'assets/images/produtos/no-thumbnail-video.jpg',
+                    title: 'Title Drawer Footer 03',
+                    subtitle: 'Lorem estarter bertore denoire abdictium'
+                },
+                {
+                    id: '4',
+                    true: true,
+                    isVideo: false,
+                    thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
+                    link_video: 'assets/images/produtos/no-thumbnail-video.jpg',
+                    title: 'Title Drawer Footer 03',
+                    subtitle: 'Lorem estarter bertore denoire abdictium'
                 }
             ],
             descriptions: [
@@ -368,9 +398,10 @@ export class ProductCreateComponent implements OnInit {
                     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
                 },
                 {
-                    id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
+                    id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bc',
                     id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    text: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+                    title: '',
+                    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
                 }
             ]
         };
@@ -380,258 +411,13 @@ export class ProductCreateComponent implements OnInit {
             id: '291b3c7d-9031-4ee1-a284-ccf508c2e7be',
             name: '',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo',
-            card:
-            {
-                id: '291b3c7d-9031-4ee1-a284-ccf508c2e7be',
-                id_projeto: '291b3c7d-9031-4ee1-a284-ccf508c2e7be',
-                title: 'Title',
-                subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo',
-                thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                godfather: 'assets/images/logo/hotmart.png',
-                dataCreate: '24012024',
-                link_video: 'assets/images/produtos/no-thumbnail-video.jpg',
-                link_page: 'https://go.hotmart.com/K93642514D?dp=1',
-
-                prices: [
-                    {
-                        date_validate: '',
-                        price_link: 'https://go.hotmart.com/K93642514D?ap=6979',
-                        price: ' 97,00',
-                        price_installment: 'em 8x no cartão sem juros',
-                        payment_type: 2,
-                        principal: true
-                    },
-                    {
-                        date_validate: '',
-                        price_link: 'https://go.hotmart.com/K93642514D?ap=6979',
-                        price: ' 67,00',
-                        price_installment: 'a vista',
-                        payment_type: 1,
-                        principal: false
-                    },
-                    {
-                        date_validate: '',
-                        price_link: 'https://go.hotmart.com/K93642514D?ap=6979',
-                        price: ' 67,00',
-                        price_installment: 'a vista',
-                        payment_type: 3,
-                        principal: false
-                    }
-                ],
-                title_drawer: {
-                    title_top: 'Title',
-                    subtitle_top: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo',
-                    title_footer: 'Title',
-                    subtitle_footer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo'
-                },
-                contents: [
-                    {
-                        id: '',
-                        icon: 'check',
-                        title: 'Lorem ipsum dolor sit amet',
-                        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                        details: [
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                        ]
-                    },
-                    {
-                        id: '',
-                        icon: 'check',
-                        title: 'Lorem ipsum dolor sit amet',
-                        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                        details: [
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                        ]
-                    }
-                ],
-
-                thumbs: [
-                    {
-                        id: '',
-                        true: true,
-                        thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                        title: 'Title',
-                        description: ''
-                    },
-                    {
-                        id: '',
-                        true: true,
-                        thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                        title: 'Title',
-                        description: ''
-                    },
-                    {
-                        id: '',
-                        true: true,
-                        thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                        title: 'Title',
-                        description: ''
-                    },
-
-                    {
-                        id: '',
-                        true: true,
-                        thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                        title: 'Title',
-                        description: ''
-                    }
-                ],
-                thumbs_two: [
-                    {
-                        id: '',
-                        true: true,
-                        thumbnail: 'assets/images/produtos/no-thumbnail-video.jpg',
-                        title: 'Title',
-                        description: 'Lorem ipsum dolor sit amet, consectetur a'
-                    },
-                    {
-                        id: '',
-                        true: true,
-                        thumbnail: 'assets/images/produtos/no-thumbnail-video.jpg',
-                        title: 'Title',
-                        description: 'Lorem ipsum dolor sit amet, consectetur a'
-                    },
-                    {
-                        id: '',
-                        true: true,
-                        thumbnail: 'assets/images/produtos/no-thumbnail-video.jpg',
-                        title: 'Title',
-                        description: 'Lorem ipsum dolor sit amet, consectetur a'
-                    }
-                ],
-                thumbs_drawer_top: [
-                    {
-                        id: '',
-                        true: true,
-                        thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                        title: 'Title',
-                        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo'
-                    }
-                ],
-                thumbs_drawer_footer: [
-                    {
-                        id: '',
-                        true: true,
-                        thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                        title: 'Title',
-                        description: 'Lorem estarter bertore denoire abdictium'
-                    },
-                    {
-                        id: '',
-                        true: true,
-                        thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                        title: 'Title',
-                        description: 'Lorem estarter bertore denoire abdictium'
-                    },
-                    {
-                        id: '',
-                        true: true,
-                        thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                        title: 'Title',
-                        description: 'Lorem estarter bertore denoire abdictium'
-                    }
-                ],
-                descriptions: [
-                    {
-                        id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        title: '',
-                        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                    },
-                    {
-                        id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        text: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-                    },
-                    {
-                        id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        text: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
-                    },
-                    {
-                        id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        text: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-                    }
-                ],
-                descriptions_two: [
-                    {
-                        id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        title: '',
-                        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                    },
-                    {
-                        id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        text: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-                    }
-                ],
-                product_detail: [
-                    {
-                        id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        icon: 'check',
-                        title: 'Lorem ipsum dolor sit amet',
-                        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                    },
-                    {
-                        id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        icon: 'check',
-                        title: 'Ut enim ad minim veniam',
-                        description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-                    },
-                    {
-                        id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        icon: 'check',
-                        title: 'Duis aute irure dolor',
-                        description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
-                    },
-                    {
-                        id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        icon: 'check',
-                        title: 'Excepteur sint occaecat cupidatat',
-                        description: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-                    },
-                    {
-                        id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        icon: 'check',
-                        title: 'Sed ut perspiciatis unde omnis',
-                        description: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.'
-                    },
-                    {
-                        id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        icon: 'check',
-                        title: 'Nemo enim ipsam voluptatem',
-                        description: 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos.'
-                    }
-                ],
-                descriptions_drawer: [ /* drawer */
-                    {
-                        id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        title: '',
-                        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                    },
-                    {
-                        id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                        text: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-                    }
-                ]
-            }
+            card: []
         }
     ];
 
     constructor(private formBuilder: FormBuilder,
-        private updateVideo: UpdateVideoService,
+                private updateVideo: UpdateVideoService,
+                private cdr: ChangeDetectorRef
     ) {
         const currentUserString = localStorage.getItem('currentUser');
         if (currentUserString !== null) {
@@ -645,7 +431,7 @@ export class ProductCreateComponent implements OnInit {
             select_provedor_anuncios: ['']
         });
 
-        this.safeURL = this.updateVideo.updateVideo(this.card.link_video);
+        this.reloadSafeUrl();
 
     }
 
@@ -704,19 +490,46 @@ export class ProductCreateComponent implements OnInit {
 
         // Detecta quando o usuário fecha clicando fora do diálogo
         dialogRef.backdropClick().subscribe(() => {
+
             this.card = JSON.parse(JSON.stringify(originalCard));
-            dialogRef.close(null); // Fecha o diálogo explicitamente com null
+            this.cdr.detectChanges(); 
+            dialogRef.close(null); 
         });
 
         dialogRef.afterClosed().subscribe(result => {
 
-            if (result !== null) {
+            this.card = JSON.parse(JSON.stringify(originalCard));
+            if (result) {
                 this.card = result;
-                this.safeURL = this.updateVideo.updateVideo(this.card.link_video);
+                this.reloadSafeUrl(); 
             }
             
         });
     }
+ 
+    reloadSafeUrl() {
 
+        this.safeURL = this.updateVideo.updateVideo(this.card.link_video);  
+    
+        this.card.thumbs_video.forEach(thumb => {
+
+            if (thumb.link_video !== 'assets/images/produtos/no-thumbnail-video.jpg') { 
+
+                if (thumb.safeUrl === null) {
+                    thumb.safeUrl = this.updateVideo.updateVideo(thumb.link_video);
+
+                    console.log(thumb.safeUrl);
+                }
+                
+
+            } else {
+                thumb.link_video !== 'assets/images/produtos/no-thumbnail-video.jpg'
+                thumb.safeUrl = null;  
+            }
+
+        });
+
+    }
+     
 
 }

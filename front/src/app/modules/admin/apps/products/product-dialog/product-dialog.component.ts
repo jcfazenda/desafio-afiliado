@@ -16,8 +16,19 @@ export class ProductDialog implements OnInit {
 
     originalCard: any;
     card: any;
+    CodeDiv = '';
 
-    thumbnail: any;
+    thumbnail = {
+        id: 0,
+        isVideo: true,
+        icon: 'tangerine-svgrepo-com',
+        thumbnail: 'assets/images/produtos/no-thumbnail-video.jpg',
+        link_video: 'https://www.youtube.com/watch?v=tDs09U9up7M&t=2s',
+        safeUrl: null,
+        title: '0000-0',
+        subtitle: 'Lorem ipsum dolor sit amet, consectetur a'
+    };
+
     thumbs_video: any;
     type: string;  
 
@@ -36,15 +47,29 @@ export class ProductDialog implements OnInit {
                 public dialogRef: MatDialogRef<ProductDialog>,
                 @Inject(MAT_DIALOG_DATA) public data: any,
                 private cdr: ChangeDetectorRef
-    ) {
-
-        this.type = data.type;  
+    ) { 
+ 
         this.originalCard = JSON.parse(JSON.stringify(data.card));
         this.card = { ...data.card }; 
 
-        if (this.type === 'thumbs') { this.thumbnail = data.item; }  
-        if (this.type === 'thumbs_video') { this.thumbnail = data.item; }
-        
+        /* thumbnails */
+        this.type = data.type; 
+        switch (this.type) {
+
+            case 'card':
+                this.CodeDiv = 'card';
+                break; 
+
+            case 'thumbs':
+            case 'thumbs_video':
+            case 'thumbs_drawer_top':
+            case 'thumbs_drawer_footer':
+
+                this.thumbnail = data.item; 
+                this.CodeDiv = 'thumb';
+                break; 
+        } 
+         
     }
 
     ngOnInit(): void { 
@@ -69,9 +94,9 @@ export class ProductDialog implements OnInit {
             thumb_subtitle: ['']
         });  
  
-        this.setFormValues();  
-        
+        this.setFormValues(); 
     }
+
     setFormValues(): void { 
  
         /* card principal */
@@ -93,24 +118,24 @@ export class ProductDialog implements OnInit {
         });  
 
         /* thumbnails */
-        if (this.type === 'thumbs') {
-            this.formGroup.patchValue({
-                thumb_image:    this.thumbnail.thumbnail,
-                thumb_title:    this.thumbnail.title,
-                thumb_subtitle: this.thumbnail.subtitle
-            }); 
-        } 
-        if (this.type === 'thumbs_video') {
-            this.formGroup.patchValue({
-                thumb_image:    this.thumbnail.thumbnail,
-                thumb_title:    this.thumbnail.title,
-                thumb_subtitle: this.thumbnail.subtitle,
-                thumb_link_video: this.thumbnail.link_video,
-            }); 
+        switch (this.type) {
+            case 'thumbs':
+            case 'thumbs_video':
+            case 'thumbs_drawer_top': 
+            case 'thumbs_drawer_footer':
+
+                this.formGroup.patchValue({
+                    thumb_image:    this.thumbnail.thumbnail,
+                    thumb_title:    this.thumbnail.title,
+                    thumb_subtitle: this.thumbnail.subtitle,
+                    thumb_link_video:  this.thumbnail.link_video,
+                });
+                break; 
         }
 
-        this.setUrl(); 
+        if (this.thumbnail.isVideo === true) {  this.setUrl(); }
 
+        /* atualiza labels ao digitar */
         this.formGroup.get('thumb_title')?.valueChanges.subscribe(value => {
             this.thumbnail.title = value;
         });
@@ -161,13 +186,28 @@ export class ProductDialog implements OnInit {
     /* SET URL */ 
     setUrl() {   
 
-        if (this.type === 'card') { this.safeURL = this.updateVideo.setUrl(this.formGroup.get('card_link_video')?.value);  }
+        /* thumbnails */ 
+        switch (this.type) {
 
-        if (this.type === 'thumbs' || this.type === 'thumbs_video') {  
+            case 'card':
+                this.safeURL = this.updateVideo.setUrl(this.formGroup.get('card_link_video')?.value);
+                break; 
 
-            this.thumbnail.link_video = this.formGroup.get('thumb_link_video')?.value;
-            this.safeURL              = this.updateVideo.setUrl(this.formGroup.get('thumb_link_video')?.value); 
-            this.cdr.detectChanges();
+            case 'thumbs':
+            case 'thumbs_video':
+            case 'thumbs_drawer_top':
+            case 'thumbs_drawer_footer':
+
+                this.safeURL     =  this.updateVideo.setUrl(this.formGroup.get('thumb_link_video')?.value);   
+                let thumb        =  this.card.thumbs_video.find(id => id.id === this.thumbnail.id);
+                    thumb.safeUrl    = null;
+                    thumb.link_video = this.formGroup.get('thumb_link_video')?.value; 
+
+                this.thumbnail   = thumb; 
+    
+                this.cdr.detectChanges(); 
+
+                break; 
         }  
     }
 
@@ -182,14 +222,16 @@ export class ProductDialog implements OnInit {
     onFileSelected(event: Event): void {
 
         const input = event.target as HTMLInputElement;
+
         if (input.files && input.files.length > 0) {
+
             const file = input.files[0];
             const reader = new FileReader();
 
             reader.onload = (e: ProgressEvent<FileReader>) => {
                 if (e.target) {
                     this.thumbnail.thumbnail = e.target.result as string;
-                    this.cdr.detectChanges(); // Força a detecção de mudanças
+                    this.cdr.detectChanges(); 
                 }
             };
 
@@ -202,47 +244,40 @@ export class ProductDialog implements OnInit {
     } 
 
     save(): void {
- 
-        /* card principal */
-        if (this.type === 'card') {
 
-            this.card.title                 = this.formGroup.get('card_title')?.value;
-            this.card.subtitle              = this.formGroup.get('card_subtitle')?.value;
-            this.card.link_video            = this.formGroup.get('card_link_video')?.value; 
-            this.card.price                 = this.formGroup.get('card_price')?.value;  
-            this.card.price_link_payment    = this.formGroup.get('price_link_payment')?.value;   
-        } 
+        /* thumbnails */ 
+        switch (this.type) {
 
-        /* thumbnails */
-        if (this.type === 'thumbs') {
+            case 'card':
+                this.card.title                 = this.formGroup.get('card_title')?.value;
+                this.card.subtitle              = this.formGroup.get('card_subtitle')?.value;
+                this.card.link_video            = this.formGroup.get('card_link_video')?.value; 
+                this.card.price                 = this.formGroup.get('card_price')?.value;  
+                this.card.price_link_payment    = this.formGroup.get('price_link_payment')?.value;    
 
-            let thumb = this.card.thumbs.find(crd => crd.id === this.thumbnail.id); 
-            if (thumb) {
-                 
-                thumb.title         = this.formGroup.get('thumb_title')?.value;
-                thumb.subtitle      = this.formGroup.get('thumb_subtitle')?.value; 
-            
-                this.card.thumbnail = thumb.thumbnail; 
-            }  
-        }
+                break; 
 
-        /* thumbnails */
-        if (this.type === 'thumbs_video') {
+            case 'thumbs':
+            case 'thumbs_video':
+            case 'thumbs_drawer_top':
+            case 'thumbs_drawer_footer':
 
-            let thumb = this.card.thumbs_video.find(crd => crd.id === this.thumbnail.id); 
-            if (thumb) {
-                    
-                thumb.title         = this.formGroup.get('thumb_title')?.value;
-                thumb.subtitle      = this.formGroup.get('thumb_subtitle')?.value; 
-                thumb.link_video    = this.formGroup.get('thumb_link_video')?.value; 
-            
-                this.card.thumbs_video = thumb.thumbnail; 
-            }  
-        }
- 
-        this.dialogRef.close(this.card);
+                let thumb = this.card.thumbs.find(crd => crd.id === this.thumbnail.id); 
+                if (thumb) { 
+                    thumb.title         = this.formGroup.get('thumb_title')?.value;
+                    thumb.subtitle      = this.formGroup.get('thumb_subtitle')?.value; 
+                    thumb.link_video    = this.formGroup.get('thumb_link_video')?.value; 
+
+                    //this.card.thumbnail = thumb.thumbnail; 
+                }
+
+                break; 
+        }  
+        
+        this.dialogRef.close(this.card); 
 
     }  
+
 
     
 }

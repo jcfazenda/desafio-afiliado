@@ -1,22 +1,7 @@
-<div class="flex  flex-auto flex-col">
-
-      <div class="mt-1 sm:p-1 flex flex-col">
-
-        <div class="drawer-header">
-          <button (click)="close()" class="close-button">
-            <mat-icon svgIcon="mat_outline:close"></mat-icon>
-          </button>
-        </div>
-
-        <!-- Linha de Divisão -->
-        <div class="w-full mt-1 p-1">
-          <mat-divider class="my-2"></mat-divider>
-        </div>
-
-      </div>
+<div class="flex  flex-auto flex-col"> 
 
       <!-- video ou thumbnail -->
-      <div class="mt-1 sm:p-1 flex flex-col">
+      <div class="mt-1  flex flex-col">
 
         <div class="flex flex-col justify-start text-left" *ngIf="type == 'card' ">
           <mat-radio-group [(ngModel)]="card.isVideo" aria-label="Select an option">
@@ -29,10 +14,106 @@
 
       <form [formGroup]="formGroup">
  
+        <div *ngIf="CodeDiv === 'thumb' ">   
+
+            <div class="m-1 flex w-full max-w-3xl flex-wrap items-left justify-left">
+
+              <mat-form-field class="gt-xs:pr-8 flex-auto" *ngIf="thumbnail.isVideo === true">
+
+                  <mat-label>Informe aqui o link do seu vídeo *</mat-label>
+                  <input matInput formControlName="thumb_link_video" [placeholder]="'url'" />
+
+                  <button mat-icon-button matSuffix (click)="setUrl()">
+                    <mat-icon>check_circle</mat-icon>
+                  </button>
+
+              </mat-form-field>
+              
+            </div>
+
+            <!-- card.thumbs -->
+            <div class="flex flex-col items-start justify-between sm:flex-row">
+
+              <mat-card class="custom-card w-full" appearance="outlined" *ngIf="thumbnail.id > 0">
+
+                  <div class="flex flex-col md:flex-row w-full">   
+
+                      <div class="m-1 flex w-full max-w-3xl flex-wrap items-left justify-left">
+
+                          <!-- thumbnail -->
+                          <div class="video-container" *ngIf="thumbnail.isVideo === false">
+                            <input type="file" style="display: none" (change)="onFileSelected($event)" #fileInput>
+                            <img mat-card-image 
+                                [src]="thumbnail.thumbnail" 
+                                alt="Thumbnail" 
+                                (click)="triggerFileInput()"
+                                style="width: 100%; height: auto;">
+                          </div>
+
+                          <!-- video -->
+                          <div class="video-container"  *ngIf="thumbnail.isVideo === true">
+
+                            <iframe [src]="safeURL" 
+                                    title="YouTube video player" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen *ngIf="thumbnail.link_video != 'assets/images/produtos/no-thumbnail-video.jpg' ">
+                            </iframe> 
+
+                            <div *ngIf="thumbnail.link_video == 'assets/images/produtos/no-thumbnail-video.jpg' " >
+                              <input type="file" style="display: none" (change)="onFileSelected($event)" #fileInput>
+                              <img mat-card-image 
+                                    [src]="thumbnail.thumbnail" 
+                                    alt="Thumbnail" 
+                                    (click)="triggerFileInput()"
+                                    style="width: 100%; height: auto;">
+                            </div>
+
+                          </div> 
+                  
+                      </div>
+
+                      <!-- title -->
+                      <div class="m-1 mb-4 flex flex-auto flex-col md:ml-4">
+                        <div class="text-0xl font-semibold leading-tight">
+                          {{thumbnail.title}}
+                        </div>
+                        <div class="mb-4 flex items-center leading-none">
+                          <div class="text-secondary">{{thumbnail.subtitle}}</div>
+                        </div>
+                      </div>
+
+                  </div> 
+
+              </mat-card> 
+
+            </div> 
+
+            <!-- edit  -->    
+            <div class="mt-4 sm:p-1 flex flex-col">
+
+              <mat-form-field class="gt-xs:pr-3 flex-auto">
+                <mat-label>Titulo *</mat-label>
+                <input matInput formControlName="thumb_title" [placeholder]="'...'" />
+                <button mat-icon-button matSuffix>
+                  <mat-icon svgIcon="tangerine-svgrepo-com" class="icon-size-5 mr-1"></mat-icon> 
+                </button>
+              </mat-form-field>
+
+              <mat-form-field class="example-full-width">
+                <mat-label>Descrição</mat-label>
+                <textarea matInput formControlName="thumb_subtitle" placeholder="descrição">descrição</textarea>
+              </mat-form-field> 
+
+            </div> 
+  
+
+        </div>  
+
         <!-- card -->
-        <div *ngIf="type=='card'">   
+        <div *ngIf="CodeDiv == 'card'">   
             
-            <!-- video ou thumbnail -->
+            <!-- video ou thumbnail -->  
             <div class="flex flex-col items-start justify-between sm:flex-row">
 
               <mat-card class="custom-card w-full" appearance="outlined">
@@ -98,15 +179,17 @@
                     <mat-form-field class="example-full-width">
                       <mat-label>Descrição</mat-label>
                       <textarea matInput formControlName="card_subtitle" placeholder="descrição">descrição</textarea>
-                    </mat-form-field>
+                    </mat-form-field>  
                     
+                    <div class="w-full mt-4 p-1"></div>
+                  
                     <mat-form-field class="gt-xs:pr-8 flex-auto">
                       <mat-label>Informe aqui o link do seu vídeo. *</mat-label>
                       <input matInput formControlName="card_link_video" [placeholder]="'url'" />
                       <button mat-icon-button matSuffix (click)="setUrl()">
                         <mat-icon>check_circle</mat-icon>
                       </button>
-                    </mat-form-field>
+                    </mat-form-field> 
 
                   </div>  
   
@@ -138,7 +221,7 @@
                     </mat-form-field>
                   
                     <!-- Botão Aplicar -->
-                    <button mat-button class="ml-2" (click)="Prices()">gerar parcelas</button>
+                    <button mat-button class="ml-2" (click)="Prices()">gerar</button>
                 
                 </div>  
 
@@ -160,7 +243,7 @@
 
                 <div class="flex items-center">
                   <mat-form-field class="gt-xs:pr-8 flex-auto">
-                      <mat-label>Informe aqui o link de compra. *</mat-label>
+                      <mat-label>Informe aqui o link de venda. *</mat-label>
                       <input matInput formControlName="price_link_payment" [placeholder]="'url'" />
                       <button mat-icon-button matSuffix>
                         <mat-icon>check_circle</mat-icon>
@@ -168,124 +251,32 @@
                   </mat-form-field>
                 </div> 
   
-              </mat-tab>  
-            </mat-tab-group>   
+              </mat-tab> 
 
-            <div class="sm:p-0 mt-0 grid w-full min-w-0 grid-cols-1 gap-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 fixed-footer-pixel .flex-auto">   
-              <div class="sm:p-1 flex flex-col">
-                <button class="fuse-mat-button-large w-full" mat-flat-button [color]="'accent'" (click)="save()">
-                  SALVAR
-                </button>
-              </div> 
-            </div> 
+            </mat-tab-group>    
 
-        </div>
-
-        
-        <div *ngIf="type === 'thumbs' || 'thumbs_video' ">   
-
-            <!-- card.thumbs -->
-            <div class="flex flex-col items-start justify-between sm:flex-row"> 
-
-              <mat-card class="custom-card w-full" appearance="outlined">
-
-                  <div class="flex flex-col md:flex-row w-full">
-
-                    <mat-form-field class="gt-xs:pr-8 flex-auto" *ngIf="thumbnail.isVideo === true">
-
-                        <mat-label>Informe aqui o link do seu vídeo *</mat-label>
-                        <input matInput formControlName="thumb_link_video" [placeholder]="'url'" />
-
-                        <button mat-icon-button matSuffix (click)="setUrl()">
-                          <mat-icon>check_circle</mat-icon>
-                        </button>
-
-                    </mat-form-field>
-                    
-                    <div class="m-1 flex w-full max-w-3xl flex-wrap items-left justify-left">
-
-                        <!-- thumbnail -->
-                        <div class="video-container" *ngIf="thumbnail.isVideo === false">
-                          <input type="file" style="display: none" (change)="onFileSelected($event)" #fileInput>
-                          <img mat-card-image 
-                               [src]="thumbnail.thumbnail" 
-                               alt="Thumbnail" 
-                               (click)="triggerFileInput()"
-                               style="width: 100%; height: auto;">
-                        </div>
- 
-                        <!-- video -->
-                        <div class="video-container"  *ngIf="thumbnail.isVideo === true">
-
-                          <iframe [src]="safeURL" 
-                                  title="YouTube video player" 
-                                  frameborder="0" 
-                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                  allowfullscreen *ngIf="thumbnail.link_video != 'assets/images/produtos/no-thumbnail-video.jpg' ">
-                          </iframe> 
-
-                          <div *ngIf="thumbnail.link_video == 'assets/images/produtos/no-thumbnail-video.jpg' " >
-                            <input type="file" style="display: none" (change)="onFileSelected($event)" #fileInput>
-                            <img mat-card-image 
-                                  [src]="thumbnail.thumbnail" 
-                                  alt="Thumbnail" 
-                                  (click)="triggerFileInput()"
-                                  style="width: 100%; height: auto;">
-                          </div>
-
-                        </div> 
-                
-                    </div>
-
-                    <!-- title -->
-                    <div class="m-1 mb-4 flex flex-auto flex-col md:ml-4">
-                      <div class="text-0xl font-semibold leading-tight">
-                        {{thumbnail.title}}
-                      </div>
-                      <div class="mb-4 flex items-center leading-none">
-                        <div class="text-secondary">{{thumbnail.subtitle}}</div>
-                      </div>
-                    </div>
-                  </div>
-
-              </mat-card>
-               
-
-              </div> 
-
-               <!-- edit  -->  
-              <div class="flex flex-col items-start justify-between sm:flex-row">
-                
-                <div class="flex flex-col md:flex-row w-full">
-
-                      <mat-form-field class="gt-xs:pr-8 flex-auto">
-                        <mat-label>Titulo *</mat-label>
-                        <input matInput formControlName="thumb_title" [placeholder]="'...'" />
-                        <button mat-icon-button matSuffix>
-                          <mat-icon svgIcon="tangerine-svgrepo-com" class="icon-size-5 mr-1"></mat-icon> 
-                        </button>
-                      </mat-form-field>
-
-                      <mat-form-field class="example-full-width">
-                        <mat-label>Descrição</mat-label>
-                        <textarea matInput formControlName="thumb_subtitle" placeholder="descrição">descrição</textarea>
-                      </mat-form-field> 
-
-                </div> 
-
-              </div>  
-
-              <div class="sm:p-0 mt-0 grid w-full min-w-0 grid-cols-1 gap-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 fixed-footer-pixel .flex-auto">   
-                <div class="sm:p-1 flex flex-col">
-                  <button class="fuse-mat-button-large w-full" mat-flat-button [color]="'accent'" (click)="save()">
-                    SALVAR
-                  </button>
-                </div> 
-              </div>  
-
-        </div>  
+        </div>   
 
       </form>  
 
+      <!-- Botoes --> 
+
+        <mat-divider class="my-1"></mat-divider> 
+        
+        <div class="grid w-full min-w-0 grid-cols-2 gap-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
+
+            <div class="mt-1 flex justify-between items-end space-x-2"> 
+                <button class="fuse-mat-button-large mt-10 w-full" mat-flat-button [color]="'accent'" (click)="save()">
+                    SALVAR
+                </button>
+                <button class="fuse-mat-button-large mt-10 w-full " mat-raised-button style="color: rgb(157, 157, 157);" (click)="close()">
+                    SAIR
+                </button> 
+            </div>
+
+        </div> 
+ 
+
 </div>
+
 

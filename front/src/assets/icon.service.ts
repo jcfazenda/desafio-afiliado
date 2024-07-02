@@ -13,7 +13,10 @@ export class IconService {
 
   private registerIcons() {
     const icons = [
+      'thumbnail-bold',
+      'thumbnail-bold-remove',
       'remove-video',
+      'youtube-icon',
       'remove-thubnail',
       'video-player',
       'youtube-01', 
@@ -25,6 +28,8 @@ export class IconService {
       'twitter-ads', 
       'tiktok-ads', 
       'instagram-ads',
+
+
       'zeplin-svgrepo-com', 
       'acrobat-reader-svgrepo-com', 
       'adobe-dreamweaver-svgrepo-com', 
@@ -105,10 +110,7 @@ export class IconService {
       'visual-studio-svgrepo-com', 
       'vs-code-svgrepo-com', 
       'whatsapp-svgrepo-com', 
-      'xamarin-svgrepo-com', 
-      'youtube-2-logo-svgrepo-com', 
-      'youtube-icon-svgrepo-com', 
-      'youtube-svgrepo-com'
+      'xamarin-svgrepo-com'  
     ];
 
     icons.forEach(icon => {

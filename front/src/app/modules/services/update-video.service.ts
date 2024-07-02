@@ -8,7 +8,7 @@ export class UpdateVideoService {
 
   constructor(private sanitizer: DomSanitizer) {}
 
-  updateVideo(url: string): SafeResourceUrl | null {
+  updateVideo(url: string): any {
     const embedUrl = this.convertToEmbedUrl(url);
     return embedUrl ? this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl) : null;
   }
@@ -20,14 +20,12 @@ export class UpdateVideoService {
     return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
   }
 
-  setUrl(url: string) { 
-
+  setUrl(url: string): SafeResourceUrl | null { 
     const safeURL = this.updateVideo(url); 
     if (safeURL) {
        return safeURL;
     } else {  
         return this.updateVideo('https://www.youtube.com/watch?v=dQw4w9WgXcQ'); // Link válido padrão
     } 
- 
-}
+  }
 }
