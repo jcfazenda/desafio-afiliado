@@ -1,0 +1,28 @@
+<div class="flex  flex-auto flex-col"> 
+ 
+
+      <form [formGroup]="formGroup">
+ 
+ 
+      </form>  
+
+      <!-- Botoes -->  
+      <mat-divider class="my-1"></mat-divider> 
+      
+      <div class="grid w-full min-w-0 grid-cols-2 gap-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
+
+          <div class="mt-1 flex justify-between items-end space-x-2"> 
+              <button class="fuse-mat-button-large mt-10 w-full" mat-flat-button [color]="'accent'" (click)="save()">
+                  SALVAR
+              </button>
+              <button class="fuse-mat-button-large mt-10 w-full " mat-raised-button style="color: rgb(157, 157, 157);" (click)="close()">
+                  SAIR
+              </button> 
+          </div>
+
+      </div> 
+ 
+
+</div>
+
+

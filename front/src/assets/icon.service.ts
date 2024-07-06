@@ -13,6 +13,9 @@ export class IconService {
 
   private registerIcons() {
     const icons = [
+      'new-paper',
+      'thumb-edit',
+      'project-add',
       'thumbnail-bold',
       'thumbnail-bold-remove',
       'remove-video',
@@ -21,6 +24,7 @@ export class IconService {
       'video-player',
       'youtube-01', 
       'credit-card', 
+      'tangerine', 
       'tangerine-gome',
       'google-ads', 
       'facebook-ads', 
@@ -98,8 +102,7 @@ export class IconService {
       'smartphone-svgrepo-com', 
       'snapchat-svgrepo-com', 
       'swagger-svgrepo-com', 
-      'swift-svgrepo-com', 
-      'tangerine-svgrepo-com', 
+      'swift-svgrepo-com',  
       'tensorflow-svgrepo-com', 
       'tiktok-ads', 
       'tiktok-svgrepo-com', 

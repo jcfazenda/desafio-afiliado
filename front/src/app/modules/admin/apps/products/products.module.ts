@@ -25,6 +25,7 @@ import { ProductsRoutingModule } from './products-routing.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CookieService } from '../../../services/cookie.service';
 import { ProductDialog } from './product-dialog/product-dialog.component';
+import { ProductGaleryComponent } from './galery/product-galery.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { ProductDialog } from './product-dialog/product-dialog.component';
         ProductCreateComponent,
         ProductsComponent,
         ProductLandingComponent,
-        ProductDialog
+        ProductDialog,
+        ProductGaleryComponent
     ],
     imports: [
         ProductsRoutingModule, 

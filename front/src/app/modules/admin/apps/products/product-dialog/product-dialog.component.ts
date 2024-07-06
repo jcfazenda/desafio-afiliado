@@ -21,7 +21,7 @@ export class ProductDialog implements OnInit {
     thumbnail = {
         id: 0,
         isVideo: true,
-        icon: 'tangerine-svgrepo-com',
+        icon: 'tangerine',
         thumbnail: 'assets/images/produtos/no-thumbnail-video.jpg',
         link_video: 'https://www.youtube.com/watch?v=tDs09U9up7M&t=2s',
         safeUrl: null,
@@ -48,7 +48,7 @@ export class ProductDialog implements OnInit {
                 @Inject(MAT_DIALOG_DATA) public data: any,
                 private cdr: ChangeDetectorRef
     ) { 
- 
+  
         this.originalCard = JSON.parse(JSON.stringify(data.card));
         this.card = { ...data.card }; 
 
@@ -64,11 +64,12 @@ export class ProductDialog implements OnInit {
             case 'thumbs_video':
             case 'thumbs_drawer_top':
             case 'thumbs_drawer_footer':
+            case 'project':
 
                 this.thumbnail = data.item; 
                 this.CodeDiv = 'thumb';
                 break; 
-        } 
+        }   
          
     }
 
@@ -123,6 +124,7 @@ export class ProductDialog implements OnInit {
             case 'thumbs_video':
             case 'thumbs_drawer_top': 
             case 'thumbs_drawer_footer':
+            case 'project':
 
                 this.formGroup.patchValue({
                     thumb_image:    this.thumbnail.thumbnail,
@@ -176,7 +178,7 @@ export class ProductDialog implements OnInit {
 
         this.card.price_installment         = 'ou até ' + this.priceInstalment.description + ' ' + this.priceInstalment.interestFree;  
         this.card.price_installment_mode    = this.installments;
-    } 
+    }  
 
     /* update video */ 
     setVideo(isVideo: boolean) { 
@@ -184,28 +186,35 @@ export class ProductDialog implements OnInit {
     }
 
     /* SET URL */ 
-    setUrl() {   
+    setUrl() {     
 
         /* thumbnails */ 
+        let thumb;
+
         switch (this.type) {
 
             case 'card':
-                this.safeURL = this.updateVideo.setUrl(this.formGroup.get('card_link_video')?.value);
+                this.safeURL = this.updateVideo.getSafeVideoUrl(this.formGroup.get('card_link_video')?.value);
+                break; 
+            
+            case 'thumbs_video':
+
+                this.safeURL     =  this.updateVideo.getSafeVideoUrl(this.formGroup.get('thumb_link_video')?.value);   
+
+                thumb        =  this.card.thumbs_video.find(id => id.id === this.thumbnail.id);
+                thumb.safeUrl    = null;
+                thumb.link_video = this.formGroup.get('thumb_link_video')?.value; 
+
+                this.thumbnail   = thumb; 
+                this.cdr.detectChanges(); 
+
                 break; 
 
             case 'thumbs':
-            case 'thumbs_video':
             case 'thumbs_drawer_top':
             case 'thumbs_drawer_footer':
-
-                this.safeURL     =  this.updateVideo.setUrl(this.formGroup.get('thumb_link_video')?.value);   
-                let thumb        =  this.card.thumbs_video.find(id => id.id === this.thumbnail.id);
-                    thumb.safeUrl    = null;
-                    thumb.link_video = this.formGroup.get('thumb_link_video')?.value; 
-
-                this.thumbnail   = thumb; 
-    
-                this.cdr.detectChanges(); 
+            case 'project': 
+                 this.thumbnail   = thumb;
 
                 break; 
         }  
@@ -230,7 +239,10 @@ export class ProductDialog implements OnInit {
 
             reader.onload = (e: ProgressEvent<FileReader>) => {
                 if (e.target) {
-                    this.thumbnail.thumbnail = e.target.result as string;
+
+                    if (this.type === 'card') { this.card.thumbnail = e.target.result as string;}
+                    if (this.type !== 'card') { this.thumbnail.thumbnail = e.target.result as string;}
+
                     this.cdr.detectChanges(); 
                 }
             };
@@ -260,18 +272,27 @@ export class ProductDialog implements OnInit {
             case 'thumbs':
             case 'thumbs_video':
             case 'thumbs_drawer_top':
-            case 'thumbs_drawer_footer':
+            case 'thumbs_drawer_footer': 
 
                 let thumb = this.card.thumbs.find(crd => crd.id === this.thumbnail.id); 
                 if (thumb) { 
                     thumb.title         = this.formGroup.get('thumb_title')?.value;
                     thumb.subtitle      = this.formGroup.get('thumb_subtitle')?.value; 
                     thumb.link_video    = this.formGroup.get('thumb_link_video')?.value; 
-
-                    //this.card.thumbnail = thumb.thumbnail; 
                 }
 
                 break; 
+                
+            case 'project': 
+
+                this.thumbnail.title         = this.formGroup.get('thumb_title')?.value;
+                this.thumbnail.subtitle      = this.formGroup.get('thumb_subtitle')?.value; 
+                this.thumbnail.link_video    = this.formGroup.get('thumb_link_video')?.value;  
+
+                this.card = this.thumbnail; 
+
+                break; 
+
         }  
         
         this.dialogRef.close(this.card); 

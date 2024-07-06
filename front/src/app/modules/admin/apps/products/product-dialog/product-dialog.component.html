@@ -96,7 +96,7 @@
                 <mat-label>Titulo *</mat-label>
                 <input matInput formControlName="thumb_title" [placeholder]="'...'" />
                 <button mat-icon-button matSuffix>
-                  <mat-icon svgIcon="tangerine-svgrepo-com" class="icon-size-5 mr-1"></mat-icon> 
+                  <mat-icon svgIcon="tangerine" class="icon-size-5 mr-1"></mat-icon> 
                 </button>
               </mat-form-field>
 
@@ -106,7 +106,6 @@
               </mat-form-field> 
 
             </div> 
-  
 
         </div>  
 
@@ -123,25 +122,33 @@
                     <div class="m-1 flex w-full max-w-3xl flex-wrap items-left justify-left">
 
                         <div class="video-container" *ngIf="card.isVideo == false">
-                          <label>
-                            <img mat-card-image [src]="card.thumbnail" alt="Thumbnail" style="width: 100%; height: auto;">
-                          </label>
+                          <input type="file" style="display: none" (change)="onFileSelected($event)" #fileInput>
+                          <img mat-card-image 
+                              [src]="card.thumbnail" 
+                              alt="Thumbnail" 
+                              (click)="triggerFileInput()"
+                              style="width: 100%; height: auto;">
                         </div>
 
                         <div class="video-container" *ngIf="card.isVideo == true">
-                          <iframe [src]="safeURL" title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen>
+
+                          <iframe [src]="safeURL" title="YouTube video player" 
+                                  frameborder="0"
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                  allowfullscreen>
                           </iframe>
+
                         </div>
 
                     </div>
 
                     <!-- title and stars -->
                     <div class="m-1 mb-4 flex flex-auto flex-col md:ml-4">
-                      <div class="text-0xl font-semibold leading-tight"> {{card.title}} </div>
-                      <div class="mb-4 flex items-center leading-none">
-                        <div class="text-secondary">{{card.subtitle}}</div>
+                        <div class="mb-1 text-0xl font-semibold leading-tight">
+                          {{card.title}}
+                      </div>
+                      <div class="mb-2 mt-1 flex items-center leading-none">
+                          <div class="text-secondary">{{card.subtitle}}</div>
                       </div>
                     </div>
 
@@ -160,8 +167,8 @@
 
               </mat-card>
 
-            </div>
-
+            </div> 
+ 
             <div class="w-full mt-1 p-2"></div> 
 
             <!-- Configurações e Preço -->
@@ -177,8 +184,8 @@
                     </mat-form-field>
                     
                     <mat-form-field class="example-full-width">
-                      <mat-label>Descrição</mat-label>
-                      <textarea matInput formControlName="card_subtitle" placeholder="descrição">descrição</textarea>
+                      <mat-label>Subtítulo</mat-label>
+                      <textarea matInput formControlName="card_subtitle" placeholder="descrição">subtítulo</textarea>
                     </mat-form-field>  
                     
                     <div class="w-full mt-4 p-1"></div>
@@ -194,6 +201,20 @@
                   </div>  
   
               </mat-tab>
+
+              <!-- descrições -->  
+              <mat-tab label="Conteúdo do Card">
+
+                  <div class="mt-4 sm:p-1 flex flex-col">
+
+                    <mat-form-field class="example-full-width">
+                      <mat-label>Subtítulo</mat-label>
+                      <textarea matInput formControlName="card_descriptions" placeholder="descrição">subtítulo</textarea>
+                    </mat-form-field>  
+                    
+                  </div>
+
+              </mat-tab> 
   
               <mat-tab label="Preços"> 
 
@@ -259,22 +280,21 @@
 
       </form>  
 
-      <!-- Botoes --> 
+      <!-- Botoes -->  
+      <mat-divider class="my-1"></mat-divider> 
+      
+      <div class="grid w-full min-w-0 grid-cols-2 gap-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
 
-        <mat-divider class="my-1"></mat-divider> 
-        
-        <div class="grid w-full min-w-0 grid-cols-2 gap-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
+          <div class="mt-1 flex justify-between items-end space-x-2"> 
+              <button class="fuse-mat-button-large mt-10 w-full" mat-flat-button [color]="'accent'" (click)="save()">
+                  SALVAR
+              </button>
+              <button class="fuse-mat-button-large mt-10 w-full " mat-raised-button style="color: rgb(157, 157, 157);" (click)="close()">
+                  SAIR
+              </button> 
+          </div>
 
-            <div class="mt-1 flex justify-between items-end space-x-2"> 
-                <button class="fuse-mat-button-large mt-10 w-full" mat-flat-button [color]="'accent'" (click)="save()">
-                    SALVAR
-                </button>
-                <button class="fuse-mat-button-large mt-10 w-full " mat-raised-button style="color: rgb(157, 157, 157);" (click)="close()">
-                    SAIR
-                </button> 
-            </div>
-
-        </div> 
+      </div> 
  
 
 </div>

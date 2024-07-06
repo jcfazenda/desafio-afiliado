@@ -88,7 +88,8 @@ export class CompactLayoutComponent implements OnInit, OnDestroy
      * @param name
      */
     toggleNavigation(name: string): void
-    {
+    { 
+
         // Get the navigation
         const navigation = this._fuseNavigationService.getComponent<FuseVerticalNavigationComponent>(name);
 

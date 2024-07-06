@@ -183,7 +183,6 @@ html {
     padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
     height: 0;
   }
-  
   .video-wrapper iframe {
     position: absolute;
     top: 0;
@@ -193,3 +192,43 @@ html {
     border: 0;
   }
   
+  
+  /* Estilo para o cartão de adição */
+.custom-card.add-card {
+    cursor: pointer; /* Adiciona o cursor de mão ao passar o mouse */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #ccc; /* Estilo do border */
+    min-width: 100%; /* Largura mínima para consistência */
+    height: 100px; /* Altura fixa */
+    /* Proporção de aspecto pode ser ajustada conforme necessário */
+}
+
+/* CSS para o card de adição */
+.custom-label.add-label {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90px; /* Ajusta a altura para ser igual aos outros cards */
+    border: 2px dashed #ccc; /* Estilo de exemplo */
+    width: 100%; /* Ajusta a largura para ser igual aos outros cards */
+}
+
+
+
+/* Estilo para prevenir cópia de imagem */
+.prevent-copy {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+

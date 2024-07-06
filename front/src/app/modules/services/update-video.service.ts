@@ -1,31 +1,58 @@
+import { HttpClient, HttpParams  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'; 
+import { YoutubeApiService } from './youtube-api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UpdateVideoService {
 
-  constructor(private sanitizer: DomSanitizer) {}
+  apiKey = 'AIzaSyCSfh7Ek0dyVgnPBiqLZ4ZyowXDjp7kq-I'; // Substitua com sua chave de API do YouTube
 
-  updateVideo(url: string): any {
-    const embedUrl = this.convertToEmbedUrl(url);
-    return embedUrl ? this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl) : null;
+  constructor(private sanitizer: DomSanitizer,
+              //private youtubeApiService: YoutubeApiService,
+              private http: HttpClient
+  ) {} 
+ 
+  /* Função para extrair o ID do vídeo do YouTube a partir da URL */ 
+  getSafeVideoUrl(url: string): SafeResourceUrl { 
+
+    let defaultYoutubeOptions = {
+      rel: 0,             // Remove vídeos relacionados ao final da reprodução.
+      controls: 0,        // Remove todos os controles do player, incluindo o controle de volume.
+      modestbranding: 1,  // Reduz o logotipo do YouTube para um estilo mais modesto no canto
+      showinfo: 0,        // Para remover o botão "Inscrever-se" e outros elementos como o título do vídeo na URL de incorporação
+      autoplay: 0,        // Inicia o vídeo automaticamente quando a página é carregada
+      loop: 1,            // Faz o vídeo reiniciar automaticamente após o término
+      mute: 0,            // Inicia o vídeo sem áudio
+      start: 0,           // Define o tempo de início do vídeo em segundos (exemplo: 30 segundos)
+      end: 60,            // Define o tempo de término do vídeo em segundos (exemplo: 60 segundos)
+      fs: 0               // Remove o botão de tela cheia do player
+    };
+
+    const videoId = this.extractVideoId(url); 
+
+    let embedUrl = `https://www.youtube.com/embed/${videoId}?`;
+
+    Object.keys(defaultYoutubeOptions).forEach(key => {
+      embedUrl += `${key}=${defaultYoutubeOptions[key]}&`;
+    });
+
+    // Remove o '&' final se existir
+    if (embedUrl.endsWith('&')) {
+        embedUrl = embedUrl.slice(0, -1);
+    }
+
+    return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
   }
 
-  convertToEmbedUrl(url: string): string | null {
-    const videoIdMatch = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
-    const videoId = videoIdMatch ? videoIdMatch[1] : null;
+  extractVideoId(url: string): string {
 
-    return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
-  }
+    const regex = /(?:https?:\/\/)?(?:www\.)?youtu(?:\.be\/|be\.com\/(?:watch\?(?:.*&)?v=|embed\/|v\/|shorts\/))([^\s&]+)/;
+    const match = url.match(regex); 
+    return (match && match[1]) ? match[1] : '';
 
-  setUrl(url: string): SafeResourceUrl | null { 
-    const safeURL = this.updateVideo(url); 
-    if (safeURL) {
-       return safeURL;
-    } else {  
-        return this.updateVideo('https://www.youtube.com/watch?v=dQw4w9WgXcQ'); // Link válido padrão
-    } 
-  }
+  } 
+
 }

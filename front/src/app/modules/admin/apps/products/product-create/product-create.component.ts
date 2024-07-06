@@ -1,10 +1,12 @@
-import { ChangeDetectorRef, Component, inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawer } from '@angular/material/sidenav';
 import { ProductDialog } from '../product-dialog/product-dialog.component';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { UpdateVideoService } from '../../../../services/update-video.service'; 
+import { ProductsService } from '../products.service'; 
+import { PriceService } from '../price/price.service';
  
 @Component({
     selector: 'app-product-create',
@@ -14,7 +16,8 @@ import { UpdateVideoService } from '../../../../services/update-video.service';
         '../../../../../layout/footer-pixel.compenent.scss',
         '../../../../../layout/data-grid.component.scss']
 })
-export class ProductCreateComponent implements OnInit {
+export class ProductCreateComponent implements OnInit, AfterViewInit, OnDestroy  {
+    
     @ViewChild('drawer') drawer: MatDrawer;
     @ViewChild('drawerPixel') drawerPixel: MatDrawer;
 
@@ -27,7 +30,30 @@ export class ProductCreateComponent implements OnInit {
 
     safeURL: SafeResourceUrl | null = null;
     formGroup: FormGroup;
-    user: any;
+    user: any; 
+    
+    currentSection = 'Projects';
+    menu = [
+        { 'name': 'Projects' },
+        { 'name': 'Sobre' },
+        { 'name': 'Seguidores' },
+        { 'name': 'Blog' } 
+    ]; 
+
+    card: any;
+    project: any;
+    projects: any;
+
+    thumbTemplate = {
+        id: 0,
+        true: true,
+        isVideo: false,
+        icon: 'tangerine',
+        thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
+        link_video: 'assets/images/produtos/no-thumbnail.jpg',
+        title: 'Thumbnail ',
+        subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo'
+    };
 
     provedoresAnuncios = [
         {
@@ -67,357 +93,11 @@ export class ProductCreateComponent implements OnInit {
         }
     ];
 
- 
-    card =
-        {
-            id: '291b3c7d-9031-4ee1-a284-ccf508c2e7be',
-            id_projeto: '291b3c7d-9031-4ee1-a284-ccf508c2e7be',
-            title: 'Title',
-            subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo',
-            thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-            link_page: 'https://go.hotmart.com/K93642514D?dp=1',
-            link_video: 'https://youtu.be/-nKoHRvtsk4?si=OidpN5V1CQOhE8DV',
-            isVideo: true,
-            godfather: 'assets/images/logo/kwifi.png',
-            dataCreate: '24012024',
-
-            price: '97,00',
-            price_installment: 'a vista',
-            price_link_payment: '',
-            price_installment_mode: [],
-            prices: [
-                {
-                    date_validate: '',
-                    price_link: 'https://go.hotmart.com/K93642514D?ap=6979',
-                    price: ' 97,00',
-                    price_installment: 'em 8x no cartão sem juros',
-                    payment_type: 2,
-                    principal: true
-                },
-                {
-                    date_validate: '',
-                    price_link: 'https://go.hotmart.com/K93642514D?ap=6979',
-                    price: ' 67,00',
-                    price_installment: 'a vista',
-                    payment_type: 1,
-                    principal: false
-                },
-                {
-                    date_validate: '',
-                    price_link: 'https://go.hotmart.com/K93642514D?ap=6979',
-                    price: ' 67,00',
-                    price_installment: 'a vista',
-                    payment_type: 3,
-                    principal: false
-                }
-            ],
-
-            pixels: [
-                {
-                    id: '291b3c7d-9031-4ee1-a284-ccf508c2e7be',
-                    name: 'Google ADS',
-                    icon: 'google-ads',
-                    pixel_id: 'AW-1064344632',
-                    pixel_label: 'FtcDCK7x9bcZELi4wvsD'
-                },
-                {
-                    id: '291b3c7d-9031-4ee1-a284-ccf508c2e7be',
-                    name: 'Twitter ADS',
-                    icon: 'twitter-ads',
-                    pixel_id: 'AW-1064344632',
-                    pixel_label: 'FtcDCK7x9bcZELi4wvsD'
-                }
-            ],
-            title_drawer: {
-                title: 'Title Drawer Top',
-                subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo'
-            },
-            title_drawer_footer: {
-                title: 'Title Drawer Thumb Footer',
-                subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo'
-            },
-            contents: [
-                {
-                    id: '',
-                    icon: 'check',
-                    title: 'Lorem ipsum dolor sit amet',
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                    details: [
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                    ]
-                },
-                {
-                    id: '',
-                    icon: 'check',
-                    title: 'Lorem ipsum dolor sit amet',
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                    details: [
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                    ]
-                }
-            ],
-            thumbs: [
-                {
-                    id: '1',
-                    true: true,
-                    isVideo: false,
-                    icon: 'tangerine-svgrepo-com',
-                    thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                    link_video: 'assets/images/produtos/no-thumbnail.jpg',
-                    title: 'Title 01',
-                    subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo'
-                },
-                {
-                    id: '2',
-                    true: true,
-                    isVideo: false,
-                    icon: 'tangerine-svgrepo-com',
-                    thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                    link_video: 'assets/images/produtos/no-thumbnail.jpg',
-                    title: 'Title 02',
-                    subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo'
-                },
-                {
-                    id: '3',
-                    true: true,
-                    isVideo: false,
-                    icon: 'tangerine-svgrepo-com',
-                    thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                    link_video: 'assets/images/produtos/no-thumbnail.jpg',
-                    title: 'Title 03',
-                    subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo'
-                },
-                {
-                    id: '4',
-                    true: true,
-                    isVideo: false,
-                    icon: 'tangerine-svgrepo-com',
-                    thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                    link_video: 'assets/images/produtos/no-thumbnail.jpg',
-                    title: 'Title 04',
-                    subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo'
-                },
-                {
-                    id: '5',
-                    true: true,
-                    isVideo: false,
-                    icon: 'tangerine-svgrepo-com',
-                    thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                    title: 'Title 05',
-                    subtitle: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo'
-                }
-            ],
-            thumbs_video: [
-                {
-                    id: '1',
-                    isVideo: true,
-                    icon: 'tangerine-svgrepo-com',
-                    thumbnail: 'assets/images/produtos/no-thumbnail-video.jpg',
-                    link_video: 'assets/images/produtos/no-thumbnail-video.jpg',
-                    title: 'Title 01',
-                    subtitle: 'Lorem ipsum dolor sit amet, consectetur a'
-                },
-                {
-                    id: '2',
-                    isVideo: true,
-                    icon: 'tangerine-svgrepo-com',
-                    thumbnail: 'assets/images/produtos/no-thumbnail-video.jpg',
-                    link_video:'assets/images/produtos/no-thumbnail-video.jpg',
-                    safeUrl: null,
-                    title: 'Title 02',
-                    subtitle: 'Lorem ipsum dolor sit amet, consectetur a'
-                },
-                {
-                    id: '3',
-                    isVideo: true,
-                    icon: 'tangerine-svgrepo-com',
-                    thumbnail: 'assets/images/produtos/no-thumbnail-video.jpg',
-                    link_video: 'assets/images/produtos/no-thumbnail-video.jpg',
-                    safeUrl: null,
-                    title: 'Title',
-                    subtitle: 'Lorem ipsum dolor sit amet, consectetur a'
-                },
-                {
-                    id: '4',
-                    isVideo: true,
-                    icon: 'tangerine-svgrepo-com',
-                    thumbnail: 'assets/images/produtos/no-thumbnail-video.jpg',
-                    link_video: 'assets/images/produtos/no-thumbnail-video.jpg',
-                    safeUrl: null,
-                    title: 'Title',
-                    subtitle: 'Lorem ipsum dolor sit amet, consectetur a'
-                },
-                {
-                    id: '5',
-                    isVideo: true,
-                    icon: 'tangerine-svgrepo-com',
-                    thumbnail: 'assets/images/produtos/no-thumbnail-video.jpg',
-                    link_video: 'assets/images/produtos/no-thumbnail-video.jpg',
-                    safeUrl: null,
-                    title: '0000-05',
-                    subtitle: 'Lorem ipsum dolor sit amet, consectetur a'
-                }
-            ],
-            thumbs_drawer_top: [
-                {
-                    id: '5',
-                    isVideo: false,
-                    icon: 'tangerine-svgrepo-com',
-                    thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                    link_video: 'assets/images/produtos/no-thumbnail-video.jpg',
-                    safeUrl: null,
-                    title: '0000-05',
-                    subtitle: 'Lorem ipsum dolor sit amet, consectetur a'
-                }
-            ],
-            thumbs_drawer_footer: [
-                {
-                    id: '1',
-                    true: true,
-                    isVideo: false,
-                    thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                    link_video: 'assets/images/produtos/no-thumbnail-video.jpg',
-                    title: 'Title Drawer Footer 03',
-                    subtitle: 'Lorem estarter bertore denoire abdictium'
-                },
-                {
-                    id: '2',
-                    true: true,
-                    isVideo: false,
-                    thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                    link_video: 'assets/images/produtos/no-thumbnail-video.jpg',
-                    title: 'Title Drawer Footer 03',
-                    subtitle: 'Lorem estarter bertore denoire abdictium'
-                },
-                {
-                    id: '3',
-                    true: true,
-                    isVideo: false,
-                    thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                    link_video: 'assets/images/produtos/no-thumbnail-video.jpg',
-                    title: 'Title Drawer Footer 03',
-                    subtitle: 'Lorem estarter bertore denoire abdictium'
-                },
-                {
-                    id: '4',
-                    true: true,
-                    isVideo: false,
-                    thumbnail: 'assets/images/produtos/no-thumbnail.jpg',
-                    link_video: 'assets/images/produtos/no-thumbnail-video.jpg',
-                    title: 'Title Drawer Footer 03',
-                    subtitle: 'Lorem estarter bertore denoire abdictium'
-                }
-            ],
-            descriptions: [
-                {
-                    id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    title: '',
-                    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                },
-                {
-                    id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    text: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-                },
-                {
-                    id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    text: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
-                },
-                {
-                    id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    text: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-                }
-            ],
-            descriptions_two: [
-                {
-                    id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    title: '',
-                    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                },
-                {
-                    id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    text: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-                }
-            ],
-            product_detail: [
-                {
-                    id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    icon: 'check',
-                    title: 'Lorem ipsum dolor sit amet',
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                },
-                {
-                    id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    icon: 'check',
-                    title: 'Ut enim ad minim veniam',
-                    description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-                },
-                {
-                    id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    icon: 'check',
-                    title: 'Duis aute irure dolor',
-                    description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
-                },
-                {
-                    id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    icon: 'check',
-                    title: 'Excepteur sint occaecat cupidatat',
-                    description: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-                },
-                {
-                    id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    icon: 'check',
-                    title: 'Sed ut perspiciatis unde omnis',
-                    description: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.'
-                },
-                {
-                    id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    icon: 'check',
-                    title: 'Nemo enim ipsam voluptatem',
-                    description: 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos.'
-                }
-            ],
-            descriptions_drawer: [ /* drawer */
-                {
-                    id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    title: '',
-                    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                },
-                {
-                    id: '291b3c7d-9031-4ee1-a284-ccf508c2e7bc',
-                    id_product: '291b3c7d-9031-4ee1-a284-ccf508c2e7bb',
-                    title: '',
-                    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-                }
-            ]
-        };
-
-    projeto = [
-        {
-            id: '291b3c7d-9031-4ee1-a284-ccf508c2e7be',
-            name: '',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmo',
-            card: []
-        }
-    ];
-
     constructor(private formBuilder: FormBuilder,
                 private updateVideo: UpdateVideoService,
-                private cdr: ChangeDetectorRef
+                private _service: ProductsService,
+                private _priceService: PriceService,
+                private cdr: ChangeDetectorRef 
     ) {
         const currentUserString = localStorage.getItem('currentUser');
         if (currentUserString !== null) {
@@ -429,11 +109,136 @@ export class ProductCreateComponent implements OnInit {
 
         this.formGroup = this.formBuilder.group({
             select_provedor_anuncios: ['']
-        });
+        }); 
 
-        this.reloadSafeUrl();
+        this.projects = this._service.getProjects();
+    }
+    ngAfterViewInit() {
+        document.addEventListener('contextmenu', this.preventImageContextMenu);
+    }
+
+    ngOnDestroy() {
+        document.removeEventListener('contextmenu', this.preventImageContextMenu);
+    }
+
+    preventImageContextMenu(event: MouseEvent) {
+        if ((event.target as HTMLElement).tagName === 'IMG') {
+            event.preventDefault();
+        }
+    }
+
+
+    /* project */  
+    openProject(section: string, project: any ) {   
+
+        this.currentSection = section;
+        this.project = project;
+
+        if (section === 'Card' ) {  
+            
+            this.card = project.card; 
+            this.reloadSafeUrl(section);
+            this.Prices();
+
+        }
 
     }
+    addNewProject() {   
+
+        let project       = this._service.newProject();  
+            project.id    = this.projects.length > 0 ? this.projects[this.projects.length - 1].id + 1 : 1; 
+            project.title = project.title + ' ' + project.id;
+
+        this.projects.push(project); 
+        this.cdr.detectChanges();
+
+    } 
+    removeProject(id: number) {  
+        this.projects = this.projects.filter(prj => prj.id !== id);  
+        this.cdr.detectChanges(); 
+    }   
+    addNewThumb(type: string) {   
+
+        let thumb = this._service.createNewThumb();  
+
+        switch (type) { 
+
+            case 'thumbs':
+
+                thumb.id    = this.project.card.thumbs.length > 0 ? this.project.card.thumbs[this.project.card.thumbs.length - 1].id + 1 : 1; 
+                thumb.title = thumb.title + ' ' + thumb.id; 
+                this.project.card.thumbs.push(thumb);
+                this.cdr.detectChanges();
+
+                break;
+
+            case 'thumbs_video':
+
+                thumb.id         = this.project.card.thumbs_video.length > 0 ? this.project.card.thumbs_video[this.project.card.thumbs_video.length - 1].id + 1 : 1; 
+                thumb.title      = 'Video ' + thumb.id; 
+                thumb.isVideo    = true;
+                thumb.thumbnail  = 'assets/images/produtos/no-thumbnail-video.jpg';
+                thumb.link_video = 'assets/images/produtos/no-thumbnail-video.jpg';
+                this.project.card.thumbs_video.push(thumb);
+                this.cdr.detectChanges();
+
+                break;
+
+            case 'thumbs_drawer_footer':
+
+                thumb.id    = this.project.card.thumbs_drawer_footer.length > 0 ? this.project.card.thumbs_drawer_footer[this.project.card.thumbs_drawer_footer.length - 1].id + 1 : 1; 
+                thumb.title = thumb.title + ' ' + thumb.id; 
+                this.project.card.thumbs_drawer_footer.push(thumb);
+                this.cdr.detectChanges();
+
+                break;
+        } 
+
+        this.card = this.project.card;
+        
+    }   
+    removeThumb(type: string, thumbId: number) {
+
+        switch (type) { 
+          case 'thumbs':
+            this.project.card.thumbs = this.project.card.thumbs.filter(thumb => thumb.id !== thumbId);
+            break;
+    
+          case 'thumbs_video':
+            this.project.card.thumbs_video = this.project.card.thumbs_video.filter(thumb => thumb.id !== thumbId);
+            break; 
+    
+          case 'thumbs_drawer_top':
+            this.project.card.thumbs_drawer_top = this.project.card.thumbs_drawer_top.filter(thumb => thumb.id !== thumbId);
+            break;
+    
+          case 'thumbs_drawer_footer':
+            this.project.card.thumbs_drawer_footer = this.project.card.thumbs_drawer_footer.filter(thumb => thumb.id !== thumbId);
+            break; 
+        }
+
+        this.card = this.project.card;
+        this.cdr.detectChanges(); 
+    }
+ 
+    /* Price & Parcelas */ 
+    Prices(): void {  
+
+        let principalPrice: number = parseFloat(this.card.price.replace('R$', '').trim()); 
+        let price = {
+
+            principalPrice:         principalPrice, 
+            card_price_num:         this.card.card_price_num,
+            card_max_installments:  this.card.card_max_installments
+        }
+        
+        let installments                    = this._priceService.generateInstallments(price);  
+        this.card.priceInstalment           = installments.slice().reverse().find(inst => inst.interestFree !== ''); 
+        this.card.priceInstalment.selected  = true;
+
+        this.card.price_installment         = 'ou até ' + this.card.priceInstalment.description + ' ' + this.card.priceInstalment.interestFree;  
+        this.card.price_installment_mode    = installments;
+    } 
 
     openDrawer(item: number) {
 
@@ -460,6 +265,35 @@ export class ProductCreateComponent implements OnInit {
         }
     }
 
+    addNewProductDetail() {
+
+        const newDetail = {
+            id: this.card.product_detail.length > 0 ? this.card.product_detail[this.card.product_detail.length - 1].id + 1 : 1,
+            icon: 'thumb-edit',  
+            title: `Novo Detalhe ${this.card.product_detail.length + 1}`,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+        };
+        
+        this.card.product_detail.push(newDetail);
+        this.cdr.detectChanges(); // Atualiza a visualização se necessário
+    }
+    addNewProductContents() {
+
+        let content = this._service.createNewContent(); 
+        content.id = this.card.contents.length > 0 ? this.card.contents[this.card.contents.length - 1].id + 1 : 1;
+ 
+        this.card.contents.push(content);
+        this.cdr.detectChanges();
+    }
+    addNewProductContentsDrawer() {
+
+        let content = this._service.createNewContent(); 
+        content.id = this.card.contents_footer_top.length > 0 ? this.card.contents_footer_top[this.card.contents_footer_top.length - 1].id + 1 : 1;
+ 
+        this.card.contents_footer_top.push(content);
+        this.cdr.detectChanges();
+    }
+
     closeDrawer() {
         this.drawerPixel.close();
         this.drawer.close();
@@ -474,8 +308,12 @@ export class ProductCreateComponent implements OnInit {
     }
 
     /* popup dialog */
-    configurateCard(type: string, item: any) {
-        
+    configurateCard(type: string, item: any) {   
+
+        if (type === 'project') {
+            this.card = item
+        }
+
         let originalCard = JSON.parse(JSON.stringify(this.card));
 
         const dialogRef = this.dialog.open(ProductDialog, {
@@ -489,47 +327,127 @@ export class ProductCreateComponent implements OnInit {
         });
 
         // Detecta quando o usuário fecha clicando fora do diálogo
-        dialogRef.backdropClick().subscribe(() => {
-
+        dialogRef.backdropClick().subscribe(() => { 
             this.card = JSON.parse(JSON.stringify(originalCard));
             this.cdr.detectChanges(); 
             dialogRef.close(null); 
         });
 
-        dialogRef.afterClosed().subscribe(result => {
+        dialogRef.afterClosed().subscribe(result => {  
 
-            this.card = JSON.parse(JSON.stringify(originalCard));
-            if (result) {
-                this.card = result;
-                this.reloadSafeUrl(); 
+            if (result === null) {
+                this.card = JSON.parse(JSON.stringify(originalCard));
+
+            }else if (type === 'project') {
+                
+                let projIndex = this.projects.findIndex(proj => proj.id === item.id);
+                if (projIndex !== -1) { 
+                    
+                    this.projects[projIndex] = JSON.parse(JSON.stringify(result));  
+                    this.reloadSafeUrl(type);  
+                }
+            } else {
+                
+                this.card = JSON.parse(JSON.stringify(result));
+                this.reloadSafeUrl(type);  
             }
-            
         });
+
+    }
+
+    openDialogLabels(type: string, item: any) {   
+
+        if (type === 'project') {
+            this.card = item
+        }
+
+        let originalCard = JSON.parse(JSON.stringify(this.card));
+
+        const dialogRef = this.dialog.open(ProductDialog, {
+            width: '700px',
+            disableClose: true,
+            data: {
+                card: this.card,
+                item: item,
+                type: type,
+            }
+        });
+
+        // Detecta quando o usuário fecha clicando fora do diálogo
+        dialogRef.backdropClick().subscribe(() => { 
+            this.card = JSON.parse(JSON.stringify(originalCard));
+            this.cdr.detectChanges(); 
+            dialogRef.close(null); 
+        });
+
+        dialogRef.afterClosed().subscribe(result => {  
+
+            if (result === null) {
+                this.card = JSON.parse(JSON.stringify(originalCard));
+
+            }else if (type === 'project') {
+                
+                let projIndex = this.projects.findIndex(proj => proj.id === item.id);
+                if (projIndex !== -1) {  
+                    this.projects[projIndex] = JSON.parse(JSON.stringify(result));  
+                }
+            } else {
+                
+                this.card = JSON.parse(JSON.stringify(result)); 
+            }
+        });
+
     }
  
-    reloadSafeUrl() {
+    //
+ 
+    isVideo(isVideo: boolean, type: string) { 
+         
 
-        this.safeURL = this.updateVideo.updateVideo(this.card.link_video);  
-    
-        this.card.thumbs_video.forEach(thumb => {
-
-            if (thumb.link_video !== 'assets/images/produtos/no-thumbnail-video.jpg') { 
-
-                if (thumb.safeUrl === null) {
-                    thumb.safeUrl = this.updateVideo.updateVideo(thumb.link_video);
-
-                    console.log(thumb.safeUrl);
-                }
-                
-
-            } else {
-                thumb.link_video !== 'assets/images/produtos/no-thumbnail-video.jpg'
-                thumb.safeUrl = null;  
+        if (isVideo === true) { 
+            if (this.card.link_video !== 'assets/images/produtos/no-thumbnail-video.jpg' ) {
+                this.reloadSafeUrl(type);
             }
+        }else {
+            this.card.isVideo = false;
+        }
 
-        });
+    }
+    reloadSafeUrl(type: string) {  
+        
+        switch (type) {
+
+            case 'card':
+            case 'Card':
+                this.safeURL = this.updateVideo.getSafeVideoUrl(this.card.link_video);  
+                break; 
+
+            case 'thumbs':
+            case 'thumbs_video':
+            case 'thumbs_drawer_top':
+            case 'thumbs_drawer_footer':
+            case 'project':
+
+                    this.card.thumbs_video.forEach(thumb => {
+
+                        if (thumb.link_video !== 'assets/images/produtos/no-thumbnail-video.jpg') { 
+            
+                            if (thumb.safeUrl === null) {
+                                thumb.safeUrl = this.updateVideo.getSafeVideoUrl(thumb.link_video); 
+                            } 
+            
+                        } else {
+                            thumb.link_video !== 'assets/images/produtos/no-thumbnail-video.jpg'
+                            thumb.safeUrl = null;  
+                        }
+            
+                    });
+
+                    break;
+            
+        }
+
 
     }
      
-
 }
